@@ -22,10 +22,9 @@ task :default => [:getwsdl, :generate]
 desc "gets the wsdl files for JIRA services"
 task :getwsdl do
   versions().each { |version| 
-    save(getWsdlFileName(version), getfile("jira.atlassian.com", "/rpc/soap/jirasoapservice-v#{version}?wsdl"))
+    save(getWsdlFileName(version), get_file("jira.atlassian.com", "/rpc/soap/jirasoapservice-v#{version}?wsdl"))
   }
 end
-
 
 
 task :generate do
@@ -39,6 +38,8 @@ task :generate do
     mkdir_p worker.basedir
     
     worker.run
+    
+    fix_service_driver(version)
   }
 end
 
@@ -74,5 +75,18 @@ end
 def save( path, content )
   File::open(path, 'w') { | f | 
     f.write( content ) 
+  }
+end
+
+def fix_service_driver(version)
+  filename = "lib/jira4r/v#{version}/jiraServiceDriver.rb"
+  content = ""
+  File.open(filename) { |io| 
+    content = io.read()
+    content.gsub!("require 'jiraService.rb'", "require File.dirname(__FILE__) + '/jiraService.rb'")
+  }
+  
+  File.open(filename, "w") { |io| 
+    io.write(content)
   }
 end

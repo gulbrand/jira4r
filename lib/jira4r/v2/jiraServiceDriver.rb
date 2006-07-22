@@ -1,4 +1,4 @@
-require 'jiraService.rb'
+require File.dirname(__FILE__) + '/jiraService.rb'
 
 require 'soap/rpc/driver'
 
