@@ -11,6 +11,4 @@ jira = Jira::JiraTool.new(2, "http://jira.atlassian.com")
 
 jira.login("soaptester", "soaptester")
 
-jira.getProjects().each { |project|
-  puts project.key
-}
+puts jira.getProject_by_key("DEMO").inspect
