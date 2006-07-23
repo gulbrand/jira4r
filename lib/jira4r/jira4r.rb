@@ -23,7 +23,7 @@ module Jira
       if not @driver
         @logger.info( "Connecting driver to #{@endpoint_url}" )
         @driver = JiraSoapService.new(@endpoint_url)
-        #@driver.wiredump_file_base = "jira4r-wiredump-"    
+        @driver.wiredump_file_base = "jira4r_wiredump"
       end
       @driver
     end
@@ -36,31 +36,6 @@ module Jira
       @token
     end
     
-    def fix_object(object)
-    
-      case object
-        when RemotePermissionScheme
-          object.id = SOAP::SOAPLong.new(object.id)
-          object.permissionMappings.each { |permissionMapping|
-            fix_object(permissionMapping)
-          }
-          return
-
-        when RemotePermissionMapping
-          fix_object(object.permission)
-          return
-      
-        when RemotePermission
-          object.permission = SOAP::SOAPLong.new(object.permission)
-          return
-          
-        when RemoteProject
-          fix_object(object.permissionScheme)
-          return
-          
-      end
-    end
-    
     def method_missing(method_name, *args)
       call_driver(method_name, *args)
     end
@@ -68,10 +43,6 @@ module Jira
     def call_driver(method_name, *args)
       @logger.debug("Finding method #{method_name}")
       method = driver().method(method_name)     
-      
-      args.each { |arg| 
-        fix_object( arg )
-      }
       
       if args.length > 0
         method.call(@token, *args)     
