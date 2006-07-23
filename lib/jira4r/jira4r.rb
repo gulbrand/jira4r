@@ -48,16 +48,33 @@ module Jira
       end
     end
     
-    def getProject_by_key(key)
+    def getProject(key)
       driver().getProjects(@token).each { |project|
         return project if project.key == key
       }
       return nil
     end
     
+    def getGroup(groupName)
+      begin
+        return driver().getGroup( @token, groupName )
+      rescue SOAP::FaultError => soap_error
+        #XXX surely there is a better way to detect this kind of condition in the JIRA server
+        if soap_error.faultcode != "soapenv:Server.userException" and soap_error.faultcode != "com.atlassian.jira.rpc.exception.RemoteValidationException: no group found for that groupName: #{groupName}"
+          return nil
+        else
+          raise soap_error
+        end
+      end
+    end
 
-  end
+    def getPermissionScheme(permissionSchemeName)
+      @driver.getPermissionSchemes(@token).each { |permission_scheme| 
+        return permission_scheme if permission_scheme.name = permissionSchemeName
+      }
+      return nil
+    end
   
-  
+  end  
 
 end
