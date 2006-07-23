@@ -24,6 +24,7 @@ module Jira
         @logger.info( "Connecting driver to #{@endpoint_url}" )
         @driver = JiraSoapService.new(@endpoint_url)
       end
+      @driver
     end
   
     def login(username, password)
@@ -37,11 +38,26 @@ module Jira
     
     
     def method_missing(method_name, *args)
-      puts "Finding method #{method_name}"
-      method = @driver.method(method_name)      
-      method.call(@token, *args)     
+      @logger.debug("Finding method #{method_name}")
+      method = driver().method(method_name)     
+       
+      if args.length > 0
+        method.call(@token, *args)     
+      else
+        method.call(@token)
+      end
     end
+    
+    def getProject_by_key(key)
+      driver().getProjects(@token).each { |project|
+        return project if project.key == key
+      }
+      return nil
+    end
+    
 
   end
+  
+  
 
 end

@@ -26,6 +26,17 @@ task :getwsdl do
   }
 end
 
+task :build_gem do
+  system("gem build jira4r.gemspec")
+end
+
+task :install_gem do
+  system("gem install *.gem")
+end  
+
+task :deploy_gem do
+  system("scp *.gem codehaus03:/home/projects/jira4r/snapshots.dist/distributions/")
+end
 
 task :generate do
   versions().each { |version|
