@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
   s.author = "Ben Walding"
   s.email = "bwalding@codehaus.org"
 # s.rubyforge_project = "jabber4r"
-  s.homepage = "http://jabber4r.rubyhaus.org"
+  s.homepage = "http://jira4r.rubyhaus.org"
 
 end
 

@@ -11,7 +11,7 @@ module Jira
       
       
       require File.dirname(__FILE__) + "/v#{version}/jiraServiceDriver.rb"
-      @endpoint_url = "#{@base_url}/rpc/soap/jirasoapservice-v2"
+      @endpoint_url = "#{@base_url}/rpc/soap/jirasoapservice-v#{version}"
     end
     
     def logger=(logger)
@@ -71,7 +71,7 @@ module Jira
         return call_driver( "getGroup", groupName )
       rescue SOAP::FaultError => soap_error
         #XXX surely there is a better way to detect this kind of condition in the JIRA server
-        if soap_error.faultcode != "soapenv:Server.userException" and soap_error.faultcode != "com.atlassian.jira.rpc.exception.RemoteValidationException: no group found for that groupName: #{groupName}"
+        if soap_error.faultcode.to_s == "soapenv:Server.userException" and soap_error.faultstring.to_s == "com.atlassian.jira.rpc.exception.RemoteValidationException: no group found for that groupName: #{groupName}"
           return nil
         else
           raise soap_error
