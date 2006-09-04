@@ -14,4 +14,4 @@ jira.driver.options["protocol.http.ssl_config.verify_mode"] = nil
 
 jira.login("soaptester", "soaptester")
 
-jira.getGroups("montage-developers")
+jira.getGroup("montage-developers")
