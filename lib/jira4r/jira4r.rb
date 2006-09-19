@@ -4,6 +4,11 @@ module Jira
 
   class JiraTool
     
+    # Create a new JiraTool
+    # 
+    # where:
+    # version ... the version of the SOAP API you wish to use - currently supported versions  [ 2 ]
+    # base_url ... the base URL of the JIRA instance - eg. http://confluence.atlassian.com
     def initialize(version, base_url)
       @version = version
       @base_url = base_url  
@@ -14,32 +19,39 @@ module Jira
       @endpoint_url = "#{@base_url}/rpc/soap/jirasoapservice-v#{version}"
     end
     
+    #Assign a new logger to the tool. By default a STDERR logger is used.
     def logger=(logger)
       @logger = logger
     end
     
-  
+    #Retrieve the driver, creating as required.
     def driver()
       if not @driver
         @logger.info( "Connecting driver to #{@endpoint_url}" )
         @driver = JiraSoapService.new(@endpoint_url)
-        @driver.wiredump_file_base = "jira4r_wiredump"
       end
       @driver
     end
+    
+    #Assign a wiredump file prefix to the driver.
+    def wiredump_file_base=(base)
+      driver().wiredump_file_base = base
+    end
+    
   
+    #Login to the JIRA instance, storing the token for later calls. 
+    # 
+    #This is typically the first call that is made on the JiraTool.
     def login(username, password)
       @token = driver().login(username, password)
     end
-    
+
+    #Clients should avoid using the authentication token directly.    
     def token()
       @token
     end
     
-    def method_missing(method_name, *args)
-      call_driver(method_name, *args)
-    end
-    
+    #Call a method on the driver, adding in the authentication token previously determined using login()
     def call_driver(method_name, *args)
       @logger.debug("Finding method #{method_name}")
       method = driver().method(method_name)     
@@ -51,6 +63,8 @@ module Jira
       end
     end
     
+    #Retrieve a project without the associated PermissionScheme.
+    #This will be significantly faster for larger Jira installations.
     def getProjectNoScheme(key)
       self.getProjectsNoSchemes().each { |project|
         return project if project.key == key
@@ -58,6 +72,10 @@ module Jira
       return nil
     end
     
+    #Retrieve a project with the associated PermissionScheme.
+    #Due to the lack of a Jira API call for getProject, this may be quite slow when there are
+    #a lot of projects with large groups attached to permission schemes.  
+    #I have raised a request with Atlassian to extend the Jira API to speed this call up.
     def getProject(key)
       self.getProjects().each { |project|
         return project if project.key == key
@@ -85,6 +103,44 @@ module Jira
       }
       return nil
     end
+    
+    def getNotificationScheme( notificationSchemeName )
+      self.getNotificationSchemes().each { |notification_scheme| 
+        return notification_scheme if notification_scheme.name = notificationSchemeName
+      }
+      return nil
+    end
+
+    def getPermission( permissionName )
+      if not @permissions
+        @permissions = self.getAllPermissions()
+      end
+      
+      @permissions.each { |permission|
+        return permission if permission.name.downcase == permissionName.downcase
+      }
+      
+      @logger.warn("No permission #{permissionName} found")
+      return nil
+    end
+
+private
+    def fix_args(args)
+      args.collect { |arg|
+        if arg == nil
+          SOAP::SOAPNil.new
+        else
+          arg
+        end
+      }
+    end
+    
+    def method_missing(method_name, *args)
+      args = fix_args(args)
+      call_driver(method_name, *args)
+    end
+    
+    
   
   end  
 
