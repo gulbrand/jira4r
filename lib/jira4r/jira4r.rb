@@ -82,6 +82,13 @@ module Jira
       }
       return nil
     end
+    
+    def getNotificationScheme(name)
+      self.getNotificationSchemes().each { |scheme|
+        return scheme if scheme.name == name
+      }
+      return nil
+    end
 
 
     def getGroup( groupName )
