@@ -1,275 +1,9 @@
 require File.dirname(__FILE__) + '/jiraService.rb'
-
+require File.dirname(__FILE__) + '/jiraServiceMappingRegistry.rb'
 require 'soap/rpc/driver'
 
 class JiraSoapService < ::SOAP::RPC::Driver
-  DefaultEndpointUrl = "http://jira.atlassian.com/rpc/soap/jirasoapservice-v2"
-  MappingRegistry = ::SOAP::Mapping::Registry.new
-
-  MappingRegistry.set(
-    RemoteConfiguration,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteConfiguration") }
-  )
-  MappingRegistry.set(
-    RemoteIssue,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteVersion,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteVersion") }
-  )
-  MappingRegistry.set(
-    ArrayOf_xsd_string,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://www.w3.org/2001/XMLSchema", "string") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteComponent,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteComponent") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteCustomFieldValue,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteCustomFieldValue") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteProject,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteProject") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteIssue,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue") }
-  )
-  MappingRegistry.set(
-    RemoteVersion,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteVersion") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteField,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteField") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteFieldValue,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteFieldValue") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteNamedObject,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteNamedObject") }
-  )
-  MappingRegistry.set(
-    RemoteComment,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteComment") }
-  )
-  MappingRegistry.set(
-    RemotePermissionScheme,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemotePermissionMapping,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionMapping") }
-  )
-  MappingRegistry.set(
-    RemotePermission,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermission") }
-  )
-  MappingRegistry.set(
-    RemoteEntity,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteEntity") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemotePermission,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermission") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteScheme,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteScheme") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemotePermissionScheme,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme") }
-  )
-  MappingRegistry.set(
-    RemoteProject,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteProject") }
-  )
-  MappingRegistry.set(
-    RemoteScheme,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteScheme") }
-  )
-  MappingRegistry.set(
-    ArrayOf_xsd_base64Binary,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://www.w3.org/2001/XMLSchema", "byte[]") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteComment,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteComment") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteFilter,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteFilter") }
-  )
-  MappingRegistry.set(
-    RemoteGroup,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteUser,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteUser") }
-  )
-  MappingRegistry.set(
-    RemoteUser,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteUser") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteResolution,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteResolution") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteStatus,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteStatus") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemotePriority,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePriority") }
-  )
-  MappingRegistry.set(
-    ArrayOf_tns1_RemoteIssueType,
-    ::SOAP::SOAPArray,
-    ::SOAP::Mapping::Registry::TypedArrayFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteIssueType") }
-  )
-  MappingRegistry.set(
-    RemoteServerInfo,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteServerInfo") }
-  )
-  MappingRegistry.set(
-    RemoteComponent,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteComponent") }
-  )
-  MappingRegistry.set(
-    RemoteCustomFieldValue,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteCustomFieldValue") }
-  )
-  MappingRegistry.set(
-    RemoteField,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteField") }
-  )
-  MappingRegistry.set(
-    RemoteFieldValue,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteFieldValue") }
-  )
-  MappingRegistry.set(
-    RemoteNamedObject,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteNamedObject") }
-  )
-  MappingRegistry.set(
-    RemotePermissionMapping,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionMapping") }
-  )
-  MappingRegistry.set(
-    RemoteFilter,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteFilter") }
-  )
-  MappingRegistry.set(
-    RemoteResolution,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteResolution") }
-  )
-  MappingRegistry.set(
-    RemoteStatus,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteStatus") }
-  )
-  MappingRegistry.set(
-    RemotePriority,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePriority") }
-  )
-  MappingRegistry.set(
-    RemoteIssueType,
-    ::SOAP::SOAPStruct,
-    ::SOAP::Mapping::Registry::TypedStructFactory,
-    { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteIssueType") }
-  )
+  DefaultEndpointUrl = "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2"
 
   Methods = [
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getConfiguration"),
@@ -302,7 +36,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getProjectsNoSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getProjectsNoSchemesReturn", ["RemoteProject[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
+        ["retval", "getProjectsNoSchemesReturn", ["RemoteProject[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -310,10 +44,10 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getIssuesFromTextSearchWithProject",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["String[]", "http://www.w3.org/2001/XMLSchema", "string"]],
+        ["in", "in1", ["String[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
         ["in", "in2", ["::SOAP::SOAPString"]],
         ["in", "in3", ["::SOAP::SOAPInt"]],
-        ["retval", "getIssuesFromTextSearchWithProjectReturn", ["RemoteIssue[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
+        ["retval", "getIssuesFromTextSearchWithProjectReturn", ["RemoteIssue[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -322,7 +56,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getIssuesFromTextSearch",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getIssuesFromTextSearchReturn", ["RemoteIssue[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
+        ["retval", "getIssuesFromTextSearchReturn", ["RemoteIssue[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -331,7 +65,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getIssuesFromFilter",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getIssuesFromFilterReturn", ["RemoteIssue[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
+        ["retval", "getIssuesFromFilterReturn", ["RemoteIssue[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -356,7 +90,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getCustomFields",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getCustomFieldsReturn", ["RemoteField[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteField"]] ],
+        ["retval", "getCustomFieldsReturn", ["RemoteField[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -366,7 +100,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
         ["in", "in2", ["::SOAP::SOAPString"]],
-        ["in", "in3", ["RemoteFieldValue[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteFieldValue"]],
+        ["in", "in3", ["RemoteFieldValue[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFieldValue"]],
         ["retval", "progressWorkflowActionReturn", ["RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
@@ -377,7 +111,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
         ["in", "in2", ["::SOAP::SOAPString"]],
-        ["retval", "getFieldsForActionReturn", ["RemoteField[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteField"]] ],
+        ["retval", "getFieldsForActionReturn", ["RemoteField[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -386,7 +120,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getAvailableActions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getAvailableActionsReturn", ["RemoteNamedObject[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteNamedObject"]] ],
+        ["retval", "getAvailableActionsReturn", ["RemoteNamedObject[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteNamedObject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -395,7 +129,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getFieldsForEdit",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getFieldsForEditReturn", ["RemoteField[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteField"]] ],
+        ["retval", "getFieldsForEditReturn", ["RemoteField[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -404,7 +138,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "updateIssue",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["in", "in2", ["RemoteFieldValue[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteFieldValue"]],
+        ["in", "in2", ["RemoteFieldValue[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFieldValue"]],
         ["retval", "updateIssueReturn", ["RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
@@ -462,7 +196,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getAllPermissions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getAllPermissionsReturn", ["RemotePermission[]", "http://beans.soap.rpc.jira.atlassian.com", "RemotePermission"]] ],
+        ["retval", "getAllPermissionsReturn", ["RemotePermission[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePermission"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -470,7 +204,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getSecuritySchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getSecuritySchemesReturn", ["RemoteScheme[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteScheme"]] ],
+        ["retval", "getSecuritySchemesReturn", ["RemoteScheme[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -478,7 +212,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getPermissionSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getPermissionSchemesReturn", ["RemotePermissionScheme[]", "http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme"]] ],
+        ["retval", "getPermissionSchemesReturn", ["RemotePermissionScheme[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePermissionScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -486,7 +220,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getNotificationSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getNotificationSchemesReturn", ["RemoteScheme[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteScheme"]] ],
+        ["retval", "getNotificationSchemesReturn", ["RemoteScheme[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -545,8 +279,8 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "addAttachmentsToIssue",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["in", "in2", ["String[]", "http://www.w3.org/2001/XMLSchema", "string"]],
-        ["in", "in3", ["Byte[]", "http://www.w3.org/2001/XMLSchema", "byte[]"]],
+        ["in", "in2", ["String[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in3", ["Byte[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_base64Binary"]],
         ["retval", "addAttachmentsToIssueReturn", ["::SOAP::SOAPBoolean"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
@@ -565,7 +299,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getComments",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getCommentsReturn", ["RemoteComment[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
+        ["retval", "getCommentsReturn", ["RemoteComment[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComment"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -582,7 +316,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getSavedFilters",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getSavedFiltersReturn", ["RemoteFilter[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteFilter"]] ],
+        ["retval", "getSavedFiltersReturn", ["RemoteFilter[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFilter"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -674,7 +408,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getResolutions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getResolutionsReturn", ["RemoteResolution[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteResolution"]] ],
+        ["retval", "getResolutionsReturn", ["RemoteResolution[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteResolution"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -682,7 +416,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getStatuses",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getStatusesReturn", ["RemoteStatus[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteStatus"]] ],
+        ["retval", "getStatusesReturn", ["RemoteStatus[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteStatus"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -690,7 +424,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getPriorities",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getPrioritiesReturn", ["RemotePriority[]", "http://beans.soap.rpc.jira.atlassian.com", "RemotePriority"]] ],
+        ["retval", "getPrioritiesReturn", ["RemotePriority[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePriority"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -698,7 +432,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getSubTaskIssueTypes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getSubTaskIssueTypesReturn", ["RemoteIssueType[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssueType"]] ],
+        ["retval", "getSubTaskIssueTypesReturn", ["RemoteIssueType[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssueType"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -706,7 +440,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getIssueTypes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getIssueTypesReturn", ["RemoteIssueType[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssueType"]] ],
+        ["retval", "getIssueTypesReturn", ["RemoteIssueType[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssueType"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -715,7 +449,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getComponents",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getComponentsReturn", ["RemoteComponent[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComponent"]] ],
+        ["retval", "getComponentsReturn", ["RemoteComponent[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComponent"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -724,7 +458,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getVersions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getVersionsReturn", ["RemoteVersion[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteVersion"]] ],
+        ["retval", "getVersionsReturn", ["RemoteVersion[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteVersion"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -732,7 +466,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "getProjects",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getProjectsReturn", ["RemoteProject[]", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
+        ["retval", "getProjectsReturn", ["RemoteProject[]", "http://jira.codehaus.org/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -766,7 +500,8 @@ class JiraSoapService < ::SOAP::RPC::Driver
   def initialize(endpoint_url = nil)
     endpoint_url ||= DefaultEndpointUrl
     super(endpoint_url, nil)
-    self.mapping_registry = MappingRegistry
+    self.mapping_registry = DefaultMappingRegistry::EncodedRegistry
+    self.literal_mapping_registry = DefaultMappingRegistry::LiteralRegistry
     init_methods
   end
 

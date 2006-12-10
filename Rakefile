@@ -22,12 +22,20 @@ task :default => [:getwsdl, :generate]
 desc "gets the wsdl files for JIRA services"
 task :getwsdl do
   versions().each { |version| 
-    save(getWsdlFileName(version), get_file("jira.atlassian.com", "/rpc/soap/jirasoapservice-v#{version}?wsdl"))
+    save(getWsdlFileName(version), get_file("jira.codehaus.org", "/rpc/soap/jirasoapservice-v#{version}?wsdl"))
   }
 end
 
 task :build_gem do
   system("gem build jira4r.gemspec")
+end
+
+task :clean do
+  File.unlink("wsdl/jirasoapservice-v2.wsdl")
+  File.unlink("lib/jira4r/v2/default.rb")
+  File.unlink("lib/jira4r/v2/defaultDriver.rb")
+  File.unlink("lib/jira4r/v2/jiraService.rb")
+  File.unlink("lib/jira4r/v2/jiraServiceDriver.rb")
 end
 
 task :install_gem do
@@ -50,7 +58,7 @@ task :generate do
     
     worker.run
     
-    fix_service_driver(version)
+    fix_soap_files(version)
   }
 end
 
@@ -89,12 +97,17 @@ def save( path, content )
   }
 end
 
-def fix_service_driver(version)
-  filename = "lib/jira4r/v#{version}/jiraServiceDriver.rb"
+def fix_soap_files(version)
+  fix_require("lib/jira4r/v#{version}/jiraServiceDriver.rb")
+  fix_require("lib/jira4r/v#{version}/jiraServiceMappingRegistry.rb")
+end
+
+def fix_require(filename)
   content = ""
   File.open(filename) { |io| 
     content = io.read()
     content.gsub!("require 'jiraService.rb'", "require File.dirname(__FILE__) + '/jiraService.rb'")
+    content.gsub!("require 'jiraServiceMappingRegistry.rb'", "require File.dirname(__FILE__) + '/jiraServiceMappingRegistry.rb'")
   }
   
   File.open(filename, "w") { |io| 

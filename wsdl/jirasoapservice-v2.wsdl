@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" xmlns:intf="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://beans.soap.rpc.jira.atlassian.com" xmlns:tns2="http://exception.rpc.jira.atlassian.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:definitions targetNamespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" xmlns:intf="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://beans.soap.rpc.jira.atlassian.com" xmlns:tns2="http://exception.rpc.jira.atlassian.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.3
 Built on Oct 05, 2005 (05:23:37 EDT)-->
  <wsdl:types>
   <schema targetNamespace="http://beans.soap.rpc.jira.atlassian.com" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://exception.rpc.jira.atlassian.com"/>
-   <import namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2"/>
+   <import namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
    <complexType name="RemoteConfiguration">
     <sequence>
@@ -247,8 +247,8 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
    </complexType>
   </schema>
   <schema targetNamespace="http://exception.rpc.jira.atlassian.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2"/>
    <import namespace="http://beans.soap.rpc.jira.atlassian.com"/>
-   <import namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
    <complexType name="RemoteException">
     <sequence/>
@@ -275,7 +275,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
     </complexContent>
    </complexType>
   </schema>
-  <schema targetNamespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" xmlns="http://www.w3.org/2001/XMLSchema">
+  <schema targetNamespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://exception.rpc.jira.atlassian.com"/>
    <import namespace="http://beans.soap.rpc.jira.atlassian.com"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -436,35 +436,101 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
   </schema>
  </wsdl:types>
 
-   <wsdl:message name="deletePermissionFromResponse">
-
-      <wsdl:part name="deletePermissionFromReturn" type="tns1:RemotePermissionScheme"/>
+   <wsdl:message name="addCommentResponse">
 
    </wsdl:message>
 
-   <wsdl:message name="addUserToGroupResponse">
-
-   </wsdl:message>
-
-   <wsdl:message name="getProjectsRequest">
+   <wsdl:message name="getCustomFieldsRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
    </wsdl:message>
 
-   <wsdl:message name="getStatusesResponse">
+   <wsdl:message name="createProjectFromObjectRequest">
 
-      <wsdl:part name="getStatusesReturn" type="impl:ArrayOf_tns1_RemoteStatus"/>
+      <wsdl:part name="in0" type="xsd:string"/>
 
-   </wsdl:message>
-
-   <wsdl:message name="RemotePermissionException">
-
-      <wsdl:part name="fault" type="tns2:RemotePermissionException"/>
+      <wsdl:part name="in1" type="tns1:RemoteProject"/>
 
    </wsdl:message>
 
-   <wsdl:message name="refreshCustomFieldsResponse">
+   <wsdl:message name="getSubTaskIssueTypesResponse">
+
+      <wsdl:part name="getSubTaskIssueTypesReturn" type="impl:ArrayOf_tns1_RemoteIssueType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteGroupResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getFieldsForEditResponse">
+
+      <wsdl:part name="getFieldsForEditReturn" type="impl:ArrayOf_tns1_RemoteField"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFieldsForActionResponse">
+
+      <wsdl:part name="getFieldsForActionReturn" type="impl:ArrayOf_tns1_RemoteField"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getServerInfoRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAvailableActionsRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="logoutRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getVersionsRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addVersionResponse">
+
+      <wsdl:part name="addVersionReturn" type="tns1:RemoteVersion"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getConfigurationResponse">
+
+      <wsdl:part name="getConfigurationReturn" type="tns1:RemoteConfiguration"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAttachmentsToIssueResponse">
+
+      <wsdl:part name="addAttachmentsToIssueReturn" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateProjectResponse">
+
+      <wsdl:part name="updateProjectReturn" type="tns1:RemoteProject"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="RemoteException">
+
+      <wsdl:part name="fault" type="tns2:RemoteException"/>
 
    </wsdl:message>
 
@@ -478,45 +544,67 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="createGroupResponse">
+   <wsdl:message name="getProjectsNoSchemesResponse">
 
-      <wsdl:part name="createGroupReturn" type="tns1:RemoteGroup"/>
+      <wsdl:part name="getProjectsNoSchemesReturn" type="impl:ArrayOf_tns1_RemoteProject"/>
 
    </wsdl:message>
 
-   <wsdl:message name="addCommentRequest">
+   <wsdl:message name="addVersionRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
       <wsdl:part name="in1" type="xsd:string"/>
 
-      <wsdl:part name="in2" type="tns1:RemoteComment"/>
+      <wsdl:part name="in2" type="tns1:RemoteVersion"/>
 
    </wsdl:message>
 
-   <wsdl:message name="RemoteValidationException">
+   <wsdl:message name="getVersionsResponse">
 
-      <wsdl:part name="fault" type="tns2:RemoteValidationException"/>
+      <wsdl:part name="getVersionsReturn" type="impl:ArrayOf_tns1_RemoteVersion"/>
 
    </wsdl:message>
 
-   <wsdl:message name="createProjectFromObjectRequest">
+   <wsdl:message name="getComponentsResponse">
+
+      <wsdl:part name="getComponentsReturn" type="impl:ArrayOf_tns1_RemoteComponent"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deletePermissionSchemeResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="createPermissionSchemeRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
-      <wsdl:part name="in1" type="tns1:RemoteProject"/>
+      <wsdl:part name="in1" type="xsd:string"/>
+
+      <wsdl:part name="in2" type="xsd:string"/>
 
    </wsdl:message>
 
-   <wsdl:message name="updateGroupRequest">
+   <wsdl:message name="addPermissionToResponse">
+
+      <wsdl:part name="addPermissionToReturn" type="tns1:RemotePermissionScheme"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteGroupRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
-      <wsdl:part name="in1" type="tns1:RemoteGroup"/>
+      <wsdl:part name="in1" type="xsd:string"/>
+
+      <wsdl:part name="in2" type="xsd:string"/>
 
    </wsdl:message>
 
-   <wsdl:message name="deleteIssueResponse">
+   <wsdl:message name="getIssueCountForFilterResponse">
+
+      <wsdl:part name="getIssueCountForFilterReturn" type="xsd:long"/>
 
    </wsdl:message>
 
@@ -530,19 +618,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getGroupResponse">
-
-      <wsdl:part name="getGroupReturn" type="tns1:RemoteGroup"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="loginResponse">
-
-      <wsdl:part name="loginReturn" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getGroupRequest">
+   <wsdl:message name="getIssueByIdRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
@@ -562,113 +638,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="deletePermissionFromResponse">
+
+      <wsdl:part name="deletePermissionFromReturn" type="tns1:RemotePermissionScheme"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAvailableActionsResponse">
+
+      <wsdl:part name="getAvailableActionsReturn" type="impl:ArrayOf_tns1_RemoteNamedObject"/>
+
+   </wsdl:message>
+
    <wsdl:message name="getIssuesFromTextSearchResponse">
 
       <wsdl:part name="getIssuesFromTextSearchReturn" type="impl:ArrayOf_tns1_RemoteIssue"/>
 
    </wsdl:message>
 
-   <wsdl:message name="getCommentsRequest">
+   <wsdl:message name="createGroupRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
       <wsdl:part name="in1" type="xsd:string"/>
 
-   </wsdl:message>
-
-   <wsdl:message name="getIssuesFromFilterRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getProjectsResponse">
-
-      <wsdl:part name="getProjectsReturn" type="impl:ArrayOf_tns1_RemoteProject"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="progressWorkflowActionResponse">
-
-      <wsdl:part name="progressWorkflowActionReturn" type="tns1:RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="updateProjectRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="tns1:RemoteProject"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addAttachmentsToIssueResponse">
-
-      <wsdl:part name="addAttachmentsToIssueReturn" type="xsd:boolean"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="logoutRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getVersionsResponse">
-
-      <wsdl:part name="getVersionsReturn" type="impl:ArrayOf_tns1_RemoteVersion"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssueTypesResponse">
-
-      <wsdl:part name="getIssueTypesReturn" type="impl:ArrayOf_tns1_RemoteIssueType"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssueCountForFilterResponse">
-
-      <wsdl:part name="getIssueCountForFilterReturn" type="xsd:long"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssueResponse">
-
-      <wsdl:part name="getIssueReturn" type="tns1:RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getPrioritiesResponse">
-
-      <wsdl:part name="getPrioritiesReturn" type="impl:ArrayOf_tns1_RemotePriority"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addCommentResponse">
-
-   </wsdl:message>
-
-   <wsdl:message name="addVersionRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-      <wsdl:part name="in2" type="tns1:RemoteVersion"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="createUserResponse">
-
-      <wsdl:part name="createUserReturn" type="tns1:RemoteUser"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addVersionResponse">
-
-      <wsdl:part name="addVersionReturn" type="tns1:RemoteVersion"/>
+      <wsdl:part name="in2" type="tns1:RemoteUser"/>
 
    </wsdl:message>
 
@@ -684,117 +678,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getComponentsResponse">
+   <wsdl:message name="getSecuritySchemesResponse">
 
-      <wsdl:part name="getComponentsReturn" type="impl:ArrayOf_tns1_RemoteComponent"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="RemoteException">
-
-      <wsdl:part name="fault" type="tns2:RemoteException"/>
+      <wsdl:part name="getSecuritySchemesReturn" type="impl:ArrayOf_tns1_RemoteScheme"/>
 
    </wsdl:message>
 
-   <wsdl:message name="deleteUserResponse">
-
-   </wsdl:message>
-
-   <wsdl:message name="getProjectsNoSchemesRequest">
+   <wsdl:message name="getNotificationSchemesRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
    </wsdl:message>
 
-   <wsdl:message name="getIssueTypesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="removeUserFromGroupResponse">
-
-   </wsdl:message>
-
-   <wsdl:message name="deleteGroupRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-      <wsdl:part name="in2" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="deleteProjectResponse">
-
-   </wsdl:message>
-
-   <wsdl:message name="createIssueResponse">
-
-      <wsdl:part name="createIssueReturn" type="tns1:RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addUserToGroupRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="tns1:RemoteGroup"/>
-
-      <wsdl:part name="in2" type="tns1:RemoteUser"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getProjectsNoSchemesResponse">
-
-      <wsdl:part name="getProjectsNoSchemesReturn" type="impl:ArrayOf_tns1_RemoteProject"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="createPermissionSchemeResponse">
-
-      <wsdl:part name="createPermissionSchemeReturn" type="tns1:RemotePermissionScheme"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="updateGroupResponse">
-
-      <wsdl:part name="updateGroupReturn" type="tns1:RemoteGroup"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssueByIdRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getPermissionSchemesResponse">
-
-      <wsdl:part name="getPermissionSchemesReturn" type="impl:ArrayOf_tns1_RemotePermissionScheme"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssuesFromTextSearchWithProjectResponse">
-
-      <wsdl:part name="getIssuesFromTextSearchWithProjectReturn" type="impl:ArrayOf_tns1_RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getComponentsRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getSavedFiltersResponse">
-
-      <wsdl:part name="getSavedFiltersReturn" type="impl:ArrayOf_tns1_RemoteFilter"/>
+   <wsdl:message name="deleteIssueResponse">
 
    </wsdl:message>
 
@@ -810,13 +706,263 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="updateProjectRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="tns1:RemoteProject"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getServerInfoResponse">
+
+      <wsdl:part name="getServerInfoReturn" type="tns1:RemoteServerInfo"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateGroupResponse">
+
+      <wsdl:part name="updateGroupReturn" type="tns1:RemoteGroup"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCustomFieldsResponse">
+
+      <wsdl:part name="getCustomFieldsReturn" type="impl:ArrayOf_tns1_RemoteField"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createPermissionSchemeResponse">
+
+      <wsdl:part name="createPermissionSchemeReturn" type="tns1:RemotePermissionScheme"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPrioritiesResponse">
+
+      <wsdl:part name="getPrioritiesReturn" type="impl:ArrayOf_tns1_RemotePriority"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssueTypesRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPrioritiesRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginResponse">
+
+      <wsdl:part name="loginReturn" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSavedFiltersRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="refreshCustomFieldsResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="loginRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupResponse">
+
+      <wsdl:part name="getGroupReturn" type="tns1:RemoteGroup"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeUserFromGroupResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="logoutResponse">
+
+      <wsdl:part name="logoutReturn" type="xsd:boolean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllPermissionsRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssueTypesResponse">
+
+      <wsdl:part name="getIssueTypesReturn" type="impl:ArrayOf_tns1_RemoteIssueType"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addPermissionToRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="tns1:RemotePermissionScheme"/>
+
+      <wsdl:part name="in2" type="tns1:RemotePermission"/>
+
+      <wsdl:part name="in3" type="tns1:RemoteEntity"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getConfigurationRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="RemotePermissionException">
+
+      <wsdl:part name="fault" type="tns2:RemotePermissionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getStatusesResponse">
+
+      <wsdl:part name="getStatusesReturn" type="impl:ArrayOf_tns1_RemoteStatus"/>
+
+   </wsdl:message>
+
    <wsdl:message name="RemoteAuthenticationException">
 
       <wsdl:part name="fault" type="tns2:RemoteAuthenticationException"/>
 
    </wsdl:message>
 
-   <wsdl:message name="getIssueCountForFilterRequest">
+   <wsdl:message name="createProjectResponse">
+
+      <wsdl:part name="createProjectReturn" type="tns1:RemoteProject"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteUserRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssueByIdResponse">
+
+      <wsdl:part name="getIssueByIdReturn" type="tns1:RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectsResponse">
+
+      <wsdl:part name="getProjectsReturn" type="impl:ArrayOf_tns1_RemoteProject"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCommentsResponse">
+
+      <wsdl:part name="getCommentsReturn" type="impl:ArrayOf_tns1_RemoteComment"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addUserToGroupRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="tns1:RemoteGroup"/>
+
+      <wsdl:part name="in2" type="tns1:RemoteUser"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getResolutionsRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createGroupResponse">
+
+      <wsdl:part name="createGroupReturn" type="tns1:RemoteGroup"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssuesFromTextSearchRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createIssueRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="tns1:RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssuesFromFilterRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectsNoSchemesRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deletePermissionSchemeRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addCommentRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+      <wsdl:part name="in2" type="tns1:RemoteComment"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getStatusesRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteProjectResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getSecuritySchemesRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCommentsRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
@@ -830,15 +976,87 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getSecuritySchemesResponse">
+   <wsdl:message name="getProjectsRequest">
 
-      <wsdl:part name="getSecuritySchemesReturn" type="impl:ArrayOf_tns1_RemoteScheme"/>
+      <wsdl:part name="in0" type="xsd:string"/>
 
    </wsdl:message>
 
-   <wsdl:message name="getCustomFieldsRequest">
+   <wsdl:message name="getPermissionSchemesRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeUserFromGroupRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="tns1:RemoteGroup"/>
+
+      <wsdl:part name="in2" type="tns1:RemoteUser"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteIssueRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addUserToGroupResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFieldsForEditRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssueResponse">
+
+      <wsdl:part name="getIssueReturn" type="tns1:RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateGroupRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="tns1:RemoteGroup"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getGroupRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="progressWorkflowActionResponse">
+
+      <wsdl:part name="progressWorkflowActionReturn" type="tns1:RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateIssueResponse">
+
+      <wsdl:part name="updateIssueReturn" type="tns1:RemoteIssue"/>
 
    </wsdl:message>
 
@@ -864,7 +1082,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="deleteIssueRequest">
+   <wsdl:message name="getSubTaskIssueTypesRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssueRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
@@ -872,25 +1096,47 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="createIssueRequest">
+   <wsdl:message name="getSavedFiltersResponse">
 
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="tns1:RemoteIssue"/>
+      <wsdl:part name="getSavedFiltersReturn" type="impl:ArrayOf_tns1_RemoteFilter"/>
 
    </wsdl:message>
 
-   <wsdl:message name="createGroupRequest">
+   <wsdl:message name="getIssuesFromFilterResponse">
+
+      <wsdl:part name="getIssuesFromFilterReturn" type="impl:ArrayOf_tns1_RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getResolutionsResponse">
+
+      <wsdl:part name="getResolutionsReturn" type="impl:ArrayOf_tns1_RemoteResolution"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getComponentsRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
       <wsdl:part name="in1" type="xsd:string"/>
 
-      <wsdl:part name="in2" type="tns1:RemoteUser"/>
+   </wsdl:message>
+
+   <wsdl:message name="deleteProjectRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
 
    </wsdl:message>
 
-   <wsdl:message name="deleteGroupResponse">
+   <wsdl:message name="deleteUserResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getPermissionSchemesResponse">
+
+      <wsdl:part name="getPermissionSchemesReturn" type="impl:ArrayOf_tns1_RemotePermissionScheme"/>
 
    </wsdl:message>
 
@@ -900,9 +1146,59 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getResolutionsResponse">
+   <wsdl:message name="createIssueResponse">
 
-      <wsdl:part name="getResolutionsReturn" type="impl:ArrayOf_tns1_RemoteResolution"/>
+      <wsdl:part name="createIssueReturn" type="tns1:RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllPermissionsResponse">
+
+      <wsdl:part name="getAllPermissionsReturn" type="impl:ArrayOf_tns1_RemotePermission"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationSchemesResponse">
+
+      <wsdl:part name="getNotificationSchemesReturn" type="impl:ArrayOf_tns1_RemoteScheme"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssueCountForFilterRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIssuesFromTextSearchWithProjectResponse">
+
+      <wsdl:part name="getIssuesFromTextSearchWithProjectReturn" type="impl:ArrayOf_tns1_RemoteIssue"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAttachmentsToIssueRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+      <wsdl:part name="in2" type="impl:ArrayOf_xsd_string"/>
+
+      <wsdl:part name="in3" type="impl:ArrayOf_xsd_base64Binary"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="RemoteValidationException">
+
+      <wsdl:part name="fault" type="tns2:RemoteValidationException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="createUserResponse">
+
+      <wsdl:part name="createUserReturn" type="tns1:RemoteUser"/>
 
    </wsdl:message>
 
@@ -923,302 +1219,6 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
       <wsdl:part name="in3" type="xsd:string"/>
 
       <wsdl:part name="in4" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getServerInfoRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="updateProjectResponse">
-
-      <wsdl:part name="updateProjectReturn" type="tns1:RemoteProject"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getFieldsForActionResponse">
-
-      <wsdl:part name="getFieldsForActionReturn" type="impl:ArrayOf_tns1_RemoteField"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="deletePermissionSchemeRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getStatusesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getPermissionSchemesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getSubTaskIssueTypesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssueByIdResponse">
-
-      <wsdl:part name="getIssueByIdReturn" type="tns1:RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getCustomFieldsResponse">
-
-      <wsdl:part name="getCustomFieldsReturn" type="impl:ArrayOf_tns1_RemoteField"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssueRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="deleteUserRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addPermissionToRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="tns1:RemotePermissionScheme"/>
-
-      <wsdl:part name="in2" type="tns1:RemotePermission"/>
-
-      <wsdl:part name="in3" type="tns1:RemoteEntity"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="deleteProjectRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="removeUserFromGroupRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="tns1:RemoteGroup"/>
-
-      <wsdl:part name="in2" type="tns1:RemoteUser"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getAvailableActionsResponse">
-
-      <wsdl:part name="getAvailableActionsReturn" type="impl:ArrayOf_tns1_RemoteNamedObject"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addAttachmentsToIssueRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-      <wsdl:part name="in2" type="impl:ArrayOf_xsd_string"/>
-
-      <wsdl:part name="in3" type="impl:ArrayOf_xsd_base64Binary"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssuesFromFilterResponse">
-
-      <wsdl:part name="getIssuesFromFilterReturn" type="impl:ArrayOf_tns1_RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getSecuritySchemesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getFieldsForEditResponse">
-
-      <wsdl:part name="getFieldsForEditReturn" type="impl:ArrayOf_tns1_RemoteField"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getAvailableActionsRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getFieldsForEditRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="loginRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getVersionsRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getConfigurationRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getNotificationSchemesResponse">
-
-      <wsdl:part name="getNotificationSchemesReturn" type="impl:ArrayOf_tns1_RemoteScheme"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getIssuesFromTextSearchRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getAllPermissionsRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="logoutResponse">
-
-      <wsdl:part name="logoutReturn" type="xsd:boolean"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getPrioritiesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="createPermissionSchemeRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-      <wsdl:part name="in2" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getConfigurationResponse">
-
-      <wsdl:part name="getConfigurationReturn" type="tns1:RemoteConfiguration"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="createProjectResponse">
-
-      <wsdl:part name="createProjectReturn" type="tns1:RemoteProject"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getServerInfoResponse">
-
-      <wsdl:part name="getServerInfoReturn" type="tns1:RemoteServerInfo"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="updateIssueResponse">
-
-      <wsdl:part name="updateIssueReturn" type="tns1:RemoteIssue"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getCommentsResponse">
-
-      <wsdl:part name="getCommentsReturn" type="impl:ArrayOf_tns1_RemoteComment"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getSubTaskIssueTypesResponse">
-
-      <wsdl:part name="getSubTaskIssueTypesReturn" type="impl:ArrayOf_tns1_RemoteIssueType"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="addPermissionToResponse">
-
-      <wsdl:part name="addPermissionToReturn" type="tns1:RemotePermissionScheme"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getResolutionsRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getUserRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-      <wsdl:part name="in1" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getAllPermissionsResponse">
-
-      <wsdl:part name="getAllPermissionsReturn" type="impl:ArrayOf_tns1_RemotePermission"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="getSavedFiltersRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="deletePermissionSchemeResponse">
-
-   </wsdl:message>
-
-   <wsdl:message name="getNotificationSchemesRequest">
-
-      <wsdl:part name="in0" type="xsd:string"/>
 
    </wsdl:message>
 
@@ -1958,25 +1958,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getConfigurationResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -1994,25 +1994,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssueByIdResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2030,13 +2030,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssueCountForFilterResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2054,25 +2054,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getProjectsNoSchemesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2090,13 +2090,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssuesFromTextSearchWithProjectResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2114,13 +2114,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssuesFromTextSearchResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2138,13 +2138,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssuesFromFilterResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2162,13 +2162,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="refreshCustomFieldsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2186,13 +2186,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="addVersionResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2210,13 +2210,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getCustomFieldsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2234,13 +2234,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="progressWorkflowActionResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2258,13 +2258,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getFieldsForActionResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2282,13 +2282,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getAvailableActionsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2306,13 +2306,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getFieldsForEditResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2330,13 +2330,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="updateIssueResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2354,25 +2354,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="addCommentResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2390,31 +2390,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="deletePermissionSchemeResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2432,31 +2432,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="deletePermissionFromResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2474,31 +2474,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="addPermissionToResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2516,31 +2516,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="createPermissionSchemeResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2558,25 +2558,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getAllPermissionsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2594,25 +2594,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getSecuritySchemesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2630,25 +2630,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getPermissionSchemesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2666,25 +2666,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getNotificationSchemesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2702,25 +2702,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="deleteProjectResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2738,31 +2738,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="updateProjectResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2780,31 +2780,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="createProjectFromObjectResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2822,31 +2822,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="createProjectResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2864,25 +2864,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="deleteIssueResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2900,31 +2900,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="addAttachmentsToIssueResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2942,31 +2942,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="createIssueResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -2984,25 +2984,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getCommentsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3020,25 +3020,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssueResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3056,25 +3056,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getSavedFiltersResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3092,31 +3092,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="deleteGroupResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3134,31 +3134,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="updateGroupResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3176,31 +3176,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="removeUserFromGroupResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3218,31 +3218,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="addUserToGroupResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3260,31 +3260,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="createGroupResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3302,31 +3302,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getGroupResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3344,31 +3344,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="deleteUserResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3386,31 +3386,31 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="createUserResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteValidationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3428,19 +3428,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getUserResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3458,19 +3458,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getResolutionsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3488,19 +3488,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getStatusesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3518,19 +3518,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getPrioritiesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3548,19 +3548,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getSubTaskIssueTypesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3578,19 +3578,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getIssueTypesResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3608,25 +3608,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getComponentsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3644,25 +3644,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getVersionsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3680,25 +3680,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getProjectsResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3716,7 +3716,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getServerInfoResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
@@ -3734,7 +3734,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="logoutResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
@@ -3752,19 +3752,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="loginResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -3776,7 +3776,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
       <wsdl:port binding="impl:jirasoapservice-v2SoapBinding" name="jirasoapservice-v2">
 
-         <wsdlsoap:address location="http://jira.atlassian.com/rpc/soap/jirasoapservice-v2"/>
+         <wsdlsoap:address location="http://jira.codehaus.org/rpc/soap/jirasoapservice-v2"/>
 
       </wsdl:port>
 
