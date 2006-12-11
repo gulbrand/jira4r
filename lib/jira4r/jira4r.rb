@@ -103,10 +103,25 @@ module Jira
         end
       end
     end
+    
+    
+    def fixPermissionScheme( scheme )
+      scheme.id = SOAP::SOAPLong.new(scheme.id)
+      scheme.permissionMappings.each { |mapping| 
+        mapping.permission.permission = SOAP::SOAPLong.new(mapping.permission.permission)
+      }
+      scheme
+    end
+        
+    def createPermissionScheme( name, description )
+      permission_scheme = call_driver( "createPermissionScheme", name, description)
+      
+      fixPermissionScheme( permission_scheme )  
+    end
 
     def getPermissionScheme( permissionSchemeName )
       self.getPermissionSchemes().each { |permission_scheme| 
-        return permission_scheme if permission_scheme.name == permissionSchemeName
+        return fixPermissionScheme(permission_scheme) if permission_scheme.name == permissionSchemeName
       }
       return nil
     end
@@ -116,6 +131,14 @@ module Jira
         return notification_scheme if notification_scheme.name == notificationSchemeName
       }
       return nil
+    end
+    
+    def getAllPermissions()
+      permissions = call_driver( "getAllPermissions" )
+      permissions.each { |perm| 
+        perm.permission = SOAP::SOAPLong.new(perm.permission)
+      }
+      permissions
     end
 
     def getPermission( permissionName )
@@ -129,6 +152,44 @@ module Jira
       
       @logger.warn("No permission #{permissionName} found")
       return nil
+    end
+    
+    def findPermission(allowedPermissions, permissionName)
+		allowedPermissions.each { |allowedPermission|
+		   #puts "Checking #{allowedPermission.name} against #{permissionName} "
+		   return allowedPermission if allowedPermission.name == permissionName
+		}
+		return nil    
+    end
+    
+    def findEntityInPermissionMapping(permissionMapping, entityName)
+      permissionMapping.remoteEntities.each { |entity|
+	    return entity if entity.name == entityName
+	  }
+	  return nil
+	end
+    
+    #Removes entity
+    def setPermissions( permissionScheme, allowedPermissions, entity)
+      #Remove permissions that are no longer allowed
+      permissionScheme.permissionMappings.each { |mapping|
+        next unless findEntityInPermissionMapping(mapping, entity.name)
+      
+        allowedPermission = findPermission(allowedPermissions, mapping.permission.name)
+	    if allowedPermission
+  	      #puts "Already has #{allowedPermission.name} in #{permissionScheme.name} for #{entity.name}"
+		  allowedPermissions.delete(allowedPermission)
+	      next
+	    end
+
+		#puts "Deleting #{mapping.permission.name} from #{permissionScheme.name} for #{entity.name}"
+        deletePermissionFrom( permissionScheme, mapping.permission, entity)
+      }
+      
+      allowedPermissions.each { |allowedPermission|
+		#puts "Granting #{allowedPermission.name} to #{permissionScheme.name} for #{entity.name}"
+		addPermissionTo(permissionScheme, allowedPermission, entity) 
+	  }   
     end
 
 private
