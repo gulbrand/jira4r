@@ -171,6 +171,7 @@ module Jira
     
     #Removes entity
     def setPermissions( permissionScheme, allowedPermissions, entity)
+      allowedPermissions = [ allowedPermissions ].flatten
       #Remove permissions that are no longer allowed
       permissionScheme.permissionMappings.each { |mapping|
         next unless findEntityInPermissionMapping(mapping, entity.name)
