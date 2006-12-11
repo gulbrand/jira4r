@@ -106,14 +106,14 @@ module Jira
 
     def getPermissionScheme( permissionSchemeName )
       self.getPermissionSchemes().each { |permission_scheme| 
-        return permission_scheme if permission_scheme.name = permissionSchemeName
+        return permission_scheme if permission_scheme.name == permissionSchemeName
       }
       return nil
     end
     
     def getNotificationScheme( notificationSchemeName )
       self.getNotificationSchemes().each { |notification_scheme| 
-        return notification_scheme if notification_scheme.name = notificationSchemeName
+        return notification_scheme if notification_scheme.name == notificationSchemeName
       }
       return nil
     end
