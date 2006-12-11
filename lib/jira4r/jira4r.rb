@@ -171,24 +171,25 @@ module Jira
     
     #Removes entity
     def setPermissions( permissionScheme, allowedPermissions, entity)
-      allowedPermissions = [ allowedPermissions ].flatten
+      allowedPermissions = [ allowedPermissions ].flatten.compact
       #Remove permissions that are no longer allowed
       permissionScheme.permissionMappings.each { |mapping|
         next unless findEntityInPermissionMapping(mapping, entity.name)
       
         allowedPermission = findPermission(allowedPermissions, mapping.permission.name)
 	    if allowedPermission
-  	      #puts "Already has #{allowedPermission.name} in #{permissionScheme.name} for #{entity.name}"
+  	      puts "Already has #{allowedPermission.name} in #{permissionScheme.name} for #{entity.name}"
 		  allowedPermissions.delete(allowedPermission)
 	      next
 	    end
 
-		#puts "Deleting #{mapping.permission.name} from #{permissionScheme.name} for #{entity.name}"
+		puts "Deleting #{mapping.permission.name} from #{permissionScheme.name} for #{entity.name}"
         deletePermissionFrom( permissionScheme, mapping.permission, entity)
       }
       
+      puts allowedPermissions.inspect
       allowedPermissions.each { |allowedPermission|
-		#puts "Granting #{allowedPermission.name} to #{permissionScheme.name} for #{entity.name}"
+		puts "Granting #{allowedPermission.name} to #{permissionScheme.name} for #{entity.name}"
 		addPermissionTo(permissionScheme, allowedPermission, entity) 
 	  }   
     end
