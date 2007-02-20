@@ -9,9 +9,10 @@ module Jira
     # where:
     # version ... the version of the SOAP API you wish to use - currently supported versions  [ 2 ]
     # base_url ... the base URL of the JIRA instance - eg. http://confluence.atlassian.com
-    def initialize(version, base_url)
+    def initialize(version, base_url, enhanced = false)
       @version = version
       @base_url = base_url  
+      @enhanced = enhanced
       @logger = Logger.new(STDERR)
       
       
@@ -77,6 +78,10 @@ module Jira
     #a lot of projects with large groups attached to permission schemes.  
     #I have raised a request with Atlassian to extend the Jira API to speed this call up.
     def getProject(key)
+      if @enhanced
+        return call_driver("getProject", key)
+      end
+      
       self.getProjects().each { |project|
         return project if project.key == key
       }
@@ -104,6 +109,11 @@ module Jira
       end
     end
     
+    def getProjectRoleByName( projectRoleName )
+      getProjectRoles.each{ |projectRole|
+        return projectRole if projectRole.name == projectRoleName
+      }
+    end
     
     def fixPermissionScheme( scheme )
       scheme.id = SOAP::SOAPLong.new(scheme.id)
