@@ -1,4 +1,6 @@
 require 'logger'
+require 'rubygems'
+gem 'soap4r'
 
 module Jira
 

@@ -11,4 +11,8 @@ jira = Jira::JiraTool.new(2, "http://jira.atlassian.com")
 
 jira.login("soaptester", "soaptester")
 
-jira.getGroup("montage-developers")
+group = jira.getGroup("montage-developers")
+if not group
+  jira.createGroup("montage-developers", nil)
+end
+
