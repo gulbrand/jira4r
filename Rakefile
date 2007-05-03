@@ -1,4 +1,3 @@
-require 'wsdl/soap/wsdl2ruby'
 require 'net/http'
 require 'fileutils'
 require 'rake/clean'
@@ -11,7 +10,11 @@ rescue Exception
   nil
 end
 
+gem 'soap4r'
+require 'wsdl/soap/wsdl2ruby'
+
 logger = Logger.new(STDERR)
+logger.level = Logger::INFO
 
 
 desc "gets the wsdl and generates the classes"
@@ -45,13 +48,17 @@ task :deploy_gem do
   system("scp *.gem codehaus03:/home/projects/jira4r/snapshots.dist/distributions/")
 end
 
+desc "generate the wsdl"
 task :generate do
   versions().each { |version|
     worker = WSDL::SOAP::WSDL2Ruby.new
     worker.logger = logger
     worker.location = getWsdlFileName(version)
     worker.basedir = "lib/jira4r/v#{version}"
-    worker.opt.update(getWsdlOpt("jira"))
+    
+    worker.opt['force'] = true
+    worker.opt['classdef'] = 'jiraService'
+    worker.opt['driver'] = 'JiraSoapService'
     
     mkdir_p worker.basedir
     
@@ -75,18 +82,6 @@ def getWsdlFileName(vName)
   "wsdl/jirasoapservice-v#{vName}.wsdl"
 end
 
-def getWsdlOpt(s)
-    optcmd= {}
-    s << "Service"
-    optcmd['classdef'] = s
-    #should work but doesn't, driver name is derived from classname
-    #if you specify both it breaks, same thing for client_skelton
-    #optcmd['driver'] = s
-    optcmd['driver'] = nil
-    #optcmd['client_skelton'] = nil
-    optcmd['force'] = true
-    return optcmd
-end
 
 # Saves this document to the specified @var path.
 # doesn't create the file if contains markup for 404 page
@@ -97,19 +92,24 @@ def save( path, content )
 end
 
 def fix_soap_files(version)
-  fix_require("lib/jira4r/v#{version}/jiraServiceDriver.rb")
   fix_require("lib/jira4r/v#{version}/jiraServiceMappingRegistry.rb")
+  fix_require("lib/jira4r/v#{version}/JiraSoapServiceDriver.rb")
 end
 
 def fix_require(filename)
   content = ""
   File.open(filename) { |io| 
     content = io.read()
-    content.gsub!("require 'jiraService.rb'", "require File.dirname(__FILE__) + '/jiraService.rb'")
-    content.gsub!("require 'jiraServiceMappingRegistry.rb'", "require File.dirname(__FILE__) + '/jiraServiceMappingRegistry.rb'")
+    
+    content = fix_content(content, 'jiraService')
+    content = fix_content(content, 'jiraServiceMappingRegistry')
   }
   
   File.open(filename, "w") { |io| 
     io.write(content)
   }
+end
+
+def fix_content(content, name)
+  return content.gsub("require '#{name}.rb'", "require File.dirname(__FILE__) + '/#{name}.rb'")
 end

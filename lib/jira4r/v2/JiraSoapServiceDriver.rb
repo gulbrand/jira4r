@@ -6,30 +6,11 @@ class JiraSoapService < ::SOAP::RPC::Driver
   DefaultEndpointUrl = "http://localhost:8080/rpc/soap/jirasoapservice-v2"
 
   Methods = [
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createGroup"),
-      "",
-      "createGroup",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["in", "in2", ["RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]],
-        ["retval", "createGroupReturn", ["RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded }
-    ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getServerInfo"),
       "",
       "getServerInfo",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["retval", "getServerInfoReturn", ["RemoteServerInfo", "http://beans.soap.rpc.jira.atlassian.com", "RemoteServerInfo"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getGroup"),
-      "",
-      "getGroup",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getGroupReturn", ["RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -60,15 +41,6 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in3", ["::SOAP::SOAPString"]],
         ["in", "in4", ["::SOAP::SOAPString"]],
         ["retval", "createUserReturn", ["RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProject"),
-      "",
-      "getProject",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getProjectReturn", ["RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -122,15 +94,6 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "getConfiguration",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["retval", "getConfigurationReturn", ["RemoteConfiguration", "http://beans.soap.rpc.jira.atlassian.com", "RemoteConfiguration"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComponents"),
-      "",
-      "getComponents",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getComponentsReturn", ["RemoteComponent[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComponent"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
@@ -471,6 +434,33 @@ class JiraSoapService < ::SOAP::RPC::Driver
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getAttachmentsFromIssue"),
+      "",
+      "getAttachmentsFromIssue",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getAttachmentsFromIssueReturn", ["RemoteAttachment[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteAttachment"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "hasPermissionToEditComment"),
+      "",
+      "hasPermissionToEditComment",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]],
+        ["retval", "hasPermissionToEditCommentReturn", ["::SOAP::SOAPBoolean"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "editComment"),
+      "",
+      "editComment",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]],
+        ["retval", "editCommentReturn", ["RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getFieldsForAction"),
       "",
       "getFieldsForAction",
@@ -670,6 +660,43 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getIssuesFromFilterReturn", ["RemoteIssue[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComment"),
+      "",
+      "getComment",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPLong"]],
+        ["retval", "getCommentReturn", ["RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createGroup"),
+      "",
+      "createGroup",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["in", "in2", ["RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]],
+        ["retval", "createGroupReturn", ["RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComponents"),
+      "",
+      "getComponents",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getComponentsReturn", ["RemoteComponent[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComponent"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getGroup"),
+      "",
+      "getGroup",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getGroupReturn", ["RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
     ]
   ]
 
@@ -701,4 +728,3 @@ private
     end
   end
 end
-

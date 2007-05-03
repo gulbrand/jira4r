@@ -16,7 +16,7 @@ module Jira
       @logger = Logger.new(STDERR)
       
       
-      require File.dirname(__FILE__) + "/v#{version}/jiraServiceDriver.rb"
+      require File.dirname(__FILE__) + "/v#{version}/JiraSoapServiceDriver.rb"
       @endpoint_url = "#{@base_url}/rpc/soap/jirasoapservice-v#{version}"
     end
     
