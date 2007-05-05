@@ -5,16 +5,16 @@ gem 'soap4r'
 module Jira
 
   class JiraTool
+    attr_accessor :enhanced
     
     # Create a new JiraTool
     # 
     # where:
     # version ... the version of the SOAP API you wish to use - currently supported versions  [ 2 ]
     # base_url ... the base URL of the JIRA instance - eg. http://confluence.atlassian.com
-    def initialize(version, base_url, enhanced = false)
+    def initialize(version, base_url)
       @version = version
       @base_url = base_url  
-      @enhanced = enhanced
       @logger = Logger.new(STDERR)
       
       
@@ -68,20 +68,39 @@ module Jira
     
     #Retrieve a project without the associated PermissionScheme.
     #This will be significantly faster for larger Jira installations.
+    #See: JRA-10660
     def getProjectNoScheme(key)
-      self.getProjectsNoSchemes().each { |project|
-        return project if project.key == key
-      }
+      #Jira > 3.8.1 has been patched to support this method directly!
+      if @enhanced
+        begin
+          puts "Using new API function getProjectNoScheme"
+          getProjectNoScheme("getProjectNoSchemes", key)
+        rescue #Check exception
+          return nil
+        end
+        return getProjectNoScheme(key)
+      else
+        self.getProjectsNoSchemes().each { |project|
+          return project if project.key == key
+        }
+      end
       return nil
     end
     
     #Retrieve a project with the associated PermissionScheme.
     #Due to the lack of a Jira API call for getProject, this may be quite slow when there are
     #a lot of projects with large groups attached to permission schemes.  
-    #I have raised a request with Atlassian to extend the Jira API to speed this call up.
+    #See: JRA-10660
     def getProject(key)
+      #Jira > 3.8.1 has been patched to support this method directly!
       if @enhanced
-        return call_driver("getProject", key)
+        begin
+          puts "Using new API function getProject"
+          return call_driver( "getProject", key )
+        rescue SOAP::FaultError => soap_error
+          puts soap_error
+          return nil
+        end
       end
       
       self.getProjects().each { |project|

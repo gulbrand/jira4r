@@ -44,6 +44,51 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
      </extension>
     </complexContent>
    </complexType>
+   <complexType name="RemoteScheme">
+    <sequence>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:long"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="type" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RemotePermission">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="permission" nillable="true" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <complexType name="RemotePermissionMapping">
+    <sequence>
+     <element name="permission" nillable="true" type="tns1:RemotePermission"/>
+     <element name="remoteEntities" nillable="true" type="impl:ArrayOf_tns1_RemoteEntity"/>
+    </sequence>
+   </complexType>
+   <complexType name="RemotePermissionScheme">
+    <complexContent>
+     <extension base="tns1:RemoteScheme">
+      <sequence>
+       <element name="permissionMappings" nillable="true" type="impl:ArrayOf_tns1_RemotePermissionMapping"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="RemoteProject">
+    <complexContent>
+     <extension base="tns1:AbstractNamedRemoteEntity">
+      <sequence>
+       <element name="description" nillable="true" type="xsd:string"/>
+       <element name="issueSecurityScheme" nillable="true" type="tns1:RemoteScheme"/>
+       <element name="key" nillable="true" type="xsd:string"/>
+       <element name="lead" nillable="true" type="xsd:string"/>
+       <element name="notificationScheme" nillable="true" type="tns1:RemoteScheme"/>
+       <element name="permissionScheme" nillable="true" type="tns1:RemotePermissionScheme"/>
+       <element name="projectUrl" nillable="true" type="xsd:string"/>
+       <element name="url" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
    <complexType name="RemoteVersion">
     <complexContent>
      <extension base="tns1:AbstractNamedRemoteEntity">
@@ -102,51 +147,6 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
     <complexContent>
      <extension base="tns1:AbstractNamedRemoteEntity">
       <sequence/>
-     </extension>
-    </complexContent>
-   </complexType>
-   <complexType name="RemoteScheme">
-    <sequence>
-     <element name="description" nillable="true" type="xsd:string"/>
-     <element name="id" nillable="true" type="xsd:long"/>
-     <element name="name" nillable="true" type="xsd:string"/>
-     <element name="type" nillable="true" type="xsd:string"/>
-    </sequence>
-   </complexType>
-   <complexType name="RemotePermission">
-    <sequence>
-     <element name="name" nillable="true" type="xsd:string"/>
-     <element name="permission" nillable="true" type="xsd:long"/>
-    </sequence>
-   </complexType>
-   <complexType name="RemotePermissionMapping">
-    <sequence>
-     <element name="permission" nillable="true" type="tns1:RemotePermission"/>
-     <element name="remoteEntities" nillable="true" type="impl:ArrayOf_tns1_RemoteEntity"/>
-    </sequence>
-   </complexType>
-   <complexType name="RemotePermissionScheme">
-    <complexContent>
-     <extension base="tns1:RemoteScheme">
-      <sequence>
-       <element name="permissionMappings" nillable="true" type="impl:ArrayOf_tns1_RemotePermissionMapping"/>
-      </sequence>
-     </extension>
-    </complexContent>
-   </complexType>
-   <complexType name="RemoteProject">
-    <complexContent>
-     <extension base="tns1:AbstractNamedRemoteEntity">
-      <sequence>
-       <element name="description" nillable="true" type="xsd:string"/>
-       <element name="issueSecurityScheme" nillable="true" type="tns1:RemoteScheme"/>
-       <element name="key" nillable="true" type="xsd:string"/>
-       <element name="lead" nillable="true" type="xsd:string"/>
-       <element name="notificationScheme" nillable="true" type="tns1:RemoteScheme"/>
-       <element name="permissionScheme" nillable="true" type="tns1:RemotePermissionScheme"/>
-       <element name="projectUrl" nillable="true" type="xsd:string"/>
-       <element name="url" nillable="true" type="xsd:string"/>
-      </sequence>
      </extension>
     </complexContent>
    </complexType>
@@ -303,6 +303,13 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
    <complexType name="RemoteException">
     <sequence/>
    </complexType>
+   <complexType name="RemoteAuthenticationException">
+    <complexContent>
+     <extension base="tns2:RemoteException">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
    <complexType name="RemotePermissionException">
     <complexContent>
      <extension base="tns2:RemoteException">
@@ -317,18 +324,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
      </extension>
     </complexContent>
    </complexType>
-   <complexType name="RemoteAuthenticationException">
-    <complexContent>
-     <extension base="tns2:RemoteException">
-      <sequence/>
-     </extension>
-    </complexContent>
-   </complexType>
   </schema>
   <schema targetNamespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://exception.rpc.jira.atlassian.com"/>
    <import namespace="http://beans.soap.rpc.jira.atlassian.com"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_RemoteEntity">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RemoteEntity[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_RemotePermissionMapping">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RemotePermissionMapping[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
    <complexType name="ArrayOf_tns1_RemoteVersion">
     <complexContent>
      <restriction base="soapenc:Array">
@@ -361,20 +375,6 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
     <complexContent>
      <restriction base="soapenc:Array">
       <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RemoteNamedObject[]"/>
-     </restriction>
-    </complexContent>
-   </complexType>
-   <complexType name="ArrayOf_tns1_RemoteEntity">
-    <complexContent>
-     <restriction base="soapenc:Array">
-      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RemoteEntity[]"/>
-     </restriction>
-    </complexContent>
-   </complexType>
-   <complexType name="ArrayOf_tns1_RemotePermissionMapping">
-    <complexContent>
-     <restriction base="soapenc:Array">
-      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RemotePermissionMapping[]"/>
      </restriction>
     </complexContent>
    </complexType>
@@ -603,6 +603,12 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="getProjectResponse">
+
+      <wsdl:part name="getProjectReturn" type="tns1:RemoteProject"/>
+
+   </wsdl:message>
+
    <wsdl:message name="removeDefaultActorsFromProjectRoleRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
@@ -724,6 +730,14 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
    </wsdl:message>
 
    <wsdl:message name="getAttachmentsFromIssueRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectNoSchemesRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
 
@@ -956,6 +970,14 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
    <wsdl:message name="getProjectsRequest">
 
       <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+      <wsdl:part name="in1" type="xsd:string"/>
 
    </wsdl:message>
 
@@ -1425,6 +1447,12 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="getProjectNoSchemesResponse">
+
+      <wsdl:part name="getProjectNoSchemesReturn" type="tns1:RemoteProject"/>
+
+   </wsdl:message>
+
    <wsdl:message name="createProjectResponse">
 
       <wsdl:part name="createProjectReturn" type="tns1:RemoteProject"/>
@@ -1656,6 +1684,20 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
          <wsdl:fault message="impl:RemotePermissionException" name="RemotePermissionException"/>
 
          <wsdl:fault message="impl:RemoteValidationException" name="RemoteValidationException"/>
+
+         <wsdl:fault message="impl:RemoteAuthenticationException" name="RemoteAuthenticationException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProject" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getProjectRequest" name="getProjectRequest"/>
+
+         <wsdl:output message="impl:getProjectResponse" name="getProjectResponse"/>
+
+         <wsdl:fault message="impl:RemoteException" name="RemoteException"/>
+
+         <wsdl:fault message="impl:RemotePermissionException" name="RemotePermissionException"/>
 
          <wsdl:fault message="impl:RemoteAuthenticationException" name="RemoteAuthenticationException"/>
 
@@ -2435,6 +2477,20 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="getProjectNoSchemes" parameterOrder="in0 in1">
+
+         <wsdl:input message="impl:getProjectNoSchemesRequest" name="getProjectNoSchemesRequest"/>
+
+         <wsdl:output message="impl:getProjectNoSchemesResponse" name="getProjectNoSchemesResponse"/>
+
+         <wsdl:fault message="impl:RemoteException" name="RemoteException"/>
+
+         <wsdl:fault message="impl:RemotePermissionException" name="RemotePermissionException"/>
+
+         <wsdl:fault message="impl:RemoteAuthenticationException" name="RemoteAuthenticationException"/>
+
+      </wsdl:operation>
+
       <wsdl:operation name="getProjectsNoSchemes" parameterOrder="in0">
 
          <wsdl:input message="impl:getProjectsNoSchemesRequest" name="getProjectsNoSchemesRequest"/>
@@ -2670,6 +2726,42 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
          <wsdl:fault name="RemoteValidationException">
 
             <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteValidationException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="RemoteAuthenticationException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.rpc.jira.atlassian.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="RemoteException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="RemotePermissionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 
@@ -4620,6 +4712,42 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
          <wsdl:fault name="RemoteException">
 
             <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjectNoSchemes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectNoSchemesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.rpc.jira.atlassian.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectNoSchemesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="RemoteException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="RemotePermissionException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="RemoteAuthenticationException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://localhost:8080/rpc/soap/jirasoapservice-v2" use="encoded"/>
 
          </wsdl:fault>
 

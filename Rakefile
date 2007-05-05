@@ -74,7 +74,7 @@ def versions
 end
 
 def get_file(host, path)
-    puts "getting http//#{host}#{path}"
+    puts "getting http://#{host}#{path}"
     http = Net::HTTP.new(host)
     http.start { |w| w.get2(path).body }
 end

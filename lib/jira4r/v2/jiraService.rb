@@ -58,6 +58,87 @@ class AbstractNamedRemoteEntity
   end
 end
 
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteScheme
+class RemoteScheme
+  attr_accessor :description
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :type
+
+  def initialize(description = nil, id = nil, name = nil, type = nil)
+    @description = description
+    @id = id
+    @name = name
+    @type = type
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePermission
+class RemotePermission
+  attr_accessor :name
+  attr_accessor :permission
+
+  def initialize(name = nil, permission = nil)
+    @name = name
+    @permission = permission
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionMapping
+class RemotePermissionMapping
+  attr_accessor :permission
+  attr_accessor :remoteEntities
+
+  def initialize(permission = nil, remoteEntities = nil)
+    @permission = permission
+    @remoteEntities = remoteEntities
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionScheme
+class RemotePermissionScheme
+  attr_accessor :description
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :type
+  attr_accessor :permissionMappings
+
+  def initialize(description = nil, id = nil, name = nil, type = nil, permissionMappings = nil)
+    @description = description
+    @id = id
+    @name = name
+    @type = type
+    @permissionMappings = permissionMappings
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteProject
+class RemoteProject
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :issueSecurityScheme
+  attr_accessor :key
+  attr_accessor :lead
+  attr_accessor :notificationScheme
+  attr_accessor :permissionScheme
+  attr_accessor :projectUrl
+  attr_accessor :url
+
+  def initialize(id = nil, name = nil, description = nil, issueSecurityScheme = nil, key = nil, lead = nil, notificationScheme = nil, permissionScheme = nil, projectUrl = nil, url = nil)
+    @id = id
+    @name = name
+    @description = description
+    @issueSecurityScheme = issueSecurityScheme
+    @key = key
+    @lead = lead
+    @notificationScheme = notificationScheme
+    @permissionScheme = permissionScheme
+    @projectUrl = projectUrl
+    @url = url
+  end
+end
+
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteVersion
 class RemoteVersion
   attr_accessor :id
@@ -158,87 +239,6 @@ class RemoteNamedObject
   def initialize(id = nil, name = nil)
     @id = id
     @name = name
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteScheme
-class RemoteScheme
-  attr_accessor :description
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :type
-
-  def initialize(description = nil, id = nil, name = nil, type = nil)
-    @description = description
-    @id = id
-    @name = name
-    @type = type
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePermission
-class RemotePermission
-  attr_accessor :name
-  attr_accessor :permission
-
-  def initialize(name = nil, permission = nil)
-    @name = name
-    @permission = permission
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionMapping
-class RemotePermissionMapping
-  attr_accessor :permission
-  attr_accessor :remoteEntities
-
-  def initialize(permission = nil, remoteEntities = nil)
-    @permission = permission
-    @remoteEntities = remoteEntities
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionScheme
-class RemotePermissionScheme
-  attr_accessor :description
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :type
-  attr_accessor :permissionMappings
-
-  def initialize(description = nil, id = nil, name = nil, type = nil, permissionMappings = nil)
-    @description = description
-    @id = id
-    @name = name
-    @type = type
-    @permissionMappings = permissionMappings
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteProject
-class RemoteProject
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :issueSecurityScheme
-  attr_accessor :key
-  attr_accessor :lead
-  attr_accessor :notificationScheme
-  attr_accessor :permissionScheme
-  attr_accessor :projectUrl
-  attr_accessor :url
-
-  def initialize(id = nil, name = nil, description = nil, issueSecurityScheme = nil, key = nil, lead = nil, notificationScheme = nil, permissionScheme = nil, projectUrl = nil, url = nil)
-    @id = id
-    @name = name
-    @description = description
-    @issueSecurityScheme = issueSecurityScheme
-    @key = key
-    @lead = lead
-    @notificationScheme = notificationScheme
-    @permissionScheme = permissionScheme
-    @projectUrl = projectUrl
-    @url = url
   end
 end
 
@@ -503,6 +503,12 @@ class RemoteException < ::StandardError
   end
 end
 
+# {http://exception.rpc.jira.atlassian.com}RemoteAuthenticationException
+class RemoteAuthenticationException < ::StandardError
+  def initialize
+  end
+end
+
 # {http://exception.rpc.jira.atlassian.com}RemotePermissionException
 class RemotePermissionException < ::StandardError
   def initialize
@@ -515,10 +521,12 @@ class RemoteValidationException < ::StandardError
   end
 end
 
-# {http://exception.rpc.jira.atlassian.com}RemoteAuthenticationException
-class RemoteAuthenticationException < ::StandardError
-  def initialize
-  end
+# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteEntity
+class ArrayOf_tns1_RemoteEntity < ::Array
+end
+
+# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermissionMapping
+class ArrayOf_tns1_RemotePermissionMapping < ::Array
 end
 
 # {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteVersion
@@ -539,14 +547,6 @@ end
 
 # {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteNamedObject
 class ArrayOf_tns1_RemoteNamedObject < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteEntity
-class ArrayOf_tns1_RemoteEntity < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermissionMapping
-class ArrayOf_tns1_RemotePermissionMapping < ::Array
 end
 
 # {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteProject

@@ -44,6 +44,15 @@ class JiraSoapService < ::SOAP::RPC::Driver
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProject"),
+      "",
+      "getProject",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getProjectReturn", ["RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssue"),
       "",
       "getIssue",
@@ -614,6 +623,15 @@ class JiraSoapService < ::SOAP::RPC::Driver
       "",
       "refreshCustomFields",
       [ ["in", "in0", ["::SOAP::SOAPString"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjectNoSchemes"),
+      "",
+      "getProjectNoSchemes",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getProjectNoSchemesReturn", ["RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded }
     ],
