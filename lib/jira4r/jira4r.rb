@@ -151,11 +151,16 @@ module Jira
     
     def getNotificationScheme( notificationSchemeName )
       self.getNotificationSchemes().each { |notification_scheme| 
-        return notification_scheme if notification_scheme.name == notificationSchemeName
+        return fixNotificationScheme( notification_scheme ) if notification_scheme.name == notificationSchemeName
       }
       return nil
     end
     
+    def fixNotificationScheme( scheme )
+      scheme.id = SOAP::SOAPLong.new(scheme.id)
+      scheme
+    end
+
     def getAllPermissions()
       permissions = call_driver( "getAllPermissions" )
       permissions.each { |perm| 
