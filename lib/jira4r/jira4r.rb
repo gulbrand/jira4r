@@ -70,6 +70,10 @@ module Jira
     #This will be significantly faster for larger Jira installations.
     #See: JRA-10660
     def getProjectNoScheme(key)
+      getProjectNoSchemes(key)
+    end
+    
+    def getProjectNoSchemes(key)
       #Jira > 3.8.1 has been patched to support this method directly!
       if @enhanced
         begin
