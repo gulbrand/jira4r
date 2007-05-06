@@ -70,6 +70,7 @@ module Jira
     #This will be significantly faster for larger Jira installations.
     #See: JRA-10660
     def getProjectNoScheme(key)
+      puts "getProjectNoScheme is deprecated. Please call getProjectNoSchemes."
       getProjectNoSchemes(key)
     end
     
