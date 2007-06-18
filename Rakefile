@@ -2,6 +2,7 @@ require 'net/http'
 require 'fileutils'
 require 'rake/clean'
 require 'logger'
+#require 'lib/wsdl_patch'
 
 begin
   require 'rubygems'
@@ -60,6 +61,7 @@ task :generate do
     worker.opt['force'] = true
     worker.opt['classdef'] = 'jiraService'
     worker.opt['driver'] = 'JiraSoapService'
+    worker.opt['module_path'] ='Jira'
     
     mkdir_p worker.basedir
     

@@ -1,5 +1,8 @@
 require 'xsd/qname'
 
+module Jira
+
+
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteServerInfo
 class RemoteServerInfo
   attr_accessor :baseUrl
@@ -503,6 +506,12 @@ class RemoteException < ::StandardError
   end
 end
 
+# {http://exception.rpc.jira.atlassian.com}RemoteValidationException
+class RemoteValidationException < ::StandardError
+  def initialize
+  end
+end
+
 # {http://exception.rpc.jira.atlassian.com}RemoteAuthenticationException
 class RemoteAuthenticationException < ::StandardError
   def initialize
@@ -511,12 +520,6 @@ end
 
 # {http://exception.rpc.jira.atlassian.com}RemotePermissionException
 class RemotePermissionException < ::StandardError
-  def initialize
-  end
-end
-
-# {http://exception.rpc.jira.atlassian.com}RemoteValidationException
-class RemoteValidationException < ::StandardError
   def initialize
   end
 end
@@ -619,4 +622,7 @@ end
 
 # {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteIssue
 class ArrayOf_tns1_RemoteIssue < ::Array
+end
+
+
 end
