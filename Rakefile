@@ -2,7 +2,6 @@ require 'net/http'
 require 'fileutils'
 require 'rake/clean'
 require 'logger'
-#require 'lib/wsdl_patch'
 
 begin
   require 'rubygems'
