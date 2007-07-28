@@ -27,7 +27,7 @@ class RemoteEntity
 end
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteUser
-class RemoteUser
+class RemoteUser < RemoteEntity
   attr_accessor :email
   attr_accessor :fullname
   attr_accessor :name
@@ -36,6 +36,17 @@ class RemoteUser
     @email = email
     @fullname = fullname
     @name = name
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteGroup
+class RemoteGroup < RemoteEntity
+  attr_accessor :name
+  attr_accessor :users
+
+  def initialize(name = nil, users = nil)
+    @name = name
+    @users = users
   end
 end
 
@@ -51,7 +62,7 @@ end
 
 # {http://beans.soap.rpc.jira.atlassian.com}AbstractNamedRemoteEntity
 # abstract
-class AbstractNamedRemoteEntity
+class AbstractNamedRemoteEntity < AbstractRemoteEntity
   attr_accessor :id
   attr_accessor :name
 
@@ -61,62 +72,8 @@ class AbstractNamedRemoteEntity
   end
 end
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteScheme
-class RemoteScheme
-  attr_accessor :description
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :type
-
-  def initialize(description = nil, id = nil, name = nil, type = nil)
-    @description = description
-    @id = id
-    @name = name
-    @type = type
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePermission
-class RemotePermission
-  attr_accessor :name
-  attr_accessor :permission
-
-  def initialize(name = nil, permission = nil)
-    @name = name
-    @permission = permission
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionMapping
-class RemotePermissionMapping
-  attr_accessor :permission
-  attr_accessor :remoteEntities
-
-  def initialize(permission = nil, remoteEntities = nil)
-    @permission = permission
-    @remoteEntities = remoteEntities
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionScheme
-class RemotePermissionScheme
-  attr_accessor :description
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :type
-  attr_accessor :permissionMappings
-
-  def initialize(description = nil, id = nil, name = nil, type = nil, permissionMappings = nil)
-    @description = description
-    @id = id
-    @name = name
-    @type = type
-    @permissionMappings = permissionMappings
-  end
-end
-
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteProject
-class RemoteProject
+class RemoteProject < AbstractNamedRemoteEntity
   attr_accessor :id
   attr_accessor :name
   attr_accessor :description
@@ -143,7 +100,7 @@ class RemoteProject
 end
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteVersion
-class RemoteVersion
+class RemoteVersion < AbstractNamedRemoteEntity
   attr_accessor :id
   attr_accessor :name
   attr_accessor :archived
@@ -162,7 +119,7 @@ class RemoteVersion
 end
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteComponent
-class RemoteComponent
+class RemoteComponent < AbstractNamedRemoteEntity
   attr_accessor :id
   attr_accessor :name
 
@@ -172,21 +129,127 @@ class RemoteComponent
   end
 end
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteCustomFieldValue
-class RemoteCustomFieldValue
-  attr_accessor :customfieldId
-  attr_accessor :key
-  attr_accessor :values
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteNamedObject
+class RemoteNamedObject < AbstractNamedRemoteEntity
+  attr_accessor :id
+  attr_accessor :name
 
-  def initialize(customfieldId = nil, key = nil, values = nil)
-    @customfieldId = customfieldId
-    @key = key
-    @values = values
+  def initialize(id = nil, name = nil)
+    @id = id
+    @name = name
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}AbstractRemoteConstant
+# abstract
+class AbstractRemoteConstant < AbstractNamedRemoteEntity
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :icon
+
+  def initialize(id = nil, name = nil, description = nil, icon = nil)
+    @id = id
+    @name = name
+    @description = description
+    @icon = icon
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteIssueType
+class RemoteIssueType < AbstractRemoteConstant
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :icon
+
+  def initialize(id = nil, name = nil, description = nil, icon = nil)
+    @id = id
+    @name = name
+    @description = description
+    @icon = icon
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePriority
+class RemotePriority < AbstractRemoteConstant
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :icon
+  attr_accessor :color
+
+  def initialize(id = nil, name = nil, description = nil, icon = nil, color = nil)
+    @id = id
+    @name = name
+    @description = description
+    @icon = icon
+    @color = color
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteResolution
+class RemoteResolution < AbstractRemoteConstant
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :icon
+
+  def initialize(id = nil, name = nil, description = nil, icon = nil)
+    @id = id
+    @name = name
+    @description = description
+    @icon = icon
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteStatus
+class RemoteStatus < AbstractRemoteConstant
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :icon
+
+  def initialize(id = nil, name = nil, description = nil, icon = nil)
+    @id = id
+    @name = name
+    @description = description
+    @icon = icon
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteField
+class RemoteField < AbstractNamedRemoteEntity
+  attr_accessor :id
+  attr_accessor :name
+
+  def initialize(id = nil, name = nil)
+    @id = id
+    @name = name
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteFilter
+class RemoteFilter < AbstractNamedRemoteEntity
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :author
+  attr_accessor :description
+  attr_accessor :project
+  attr_accessor :xml
+
+  def initialize(id = nil, name = nil, author = nil, description = nil, project = nil, xml = nil)
+    @id = id
+    @name = name
+    @author = author
+    @description = description
+    @project = project
+    @xml = xml
   end
 end
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteIssue
-class RemoteIssue
+class RemoteIssue < AbstractRemoteEntity
   attr_accessor :id
   attr_accessor :affectsVersions
   attr_accessor :assignee
@@ -234,14 +297,89 @@ class RemoteIssue
   end
 end
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteNamedObject
-class RemoteNamedObject
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteAttachment
+class RemoteAttachment < AbstractRemoteEntity
+  attr_accessor :id
+  attr_accessor :author
+  attr_accessor :created
+  attr_accessor :filename
+  attr_accessor :filesize
+  attr_accessor :mimetype
+
+  def initialize(id = nil, author = nil, created = nil, filename = nil, filesize = nil, mimetype = nil)
+    @id = id
+    @author = author
+    @created = created
+    @filename = filename
+    @filesize = filesize
+    @mimetype = mimetype
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteScheme
+class RemoteScheme
+  attr_accessor :description
   attr_accessor :id
   attr_accessor :name
+  attr_accessor :type
 
-  def initialize(id = nil, name = nil)
+  def initialize(description = nil, id = nil, name = nil, type = nil)
+    @description = description
     @id = id
     @name = name
+    @type = type
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionScheme
+class RemotePermissionScheme < RemoteScheme
+  attr_accessor :description
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :type
+  attr_accessor :permissionMappings
+
+  def initialize(description = nil, id = nil, name = nil, type = nil, permissionMappings = nil)
+    @description = description
+    @id = id
+    @name = name
+    @type = type
+    @permissionMappings = permissionMappings
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePermission
+class RemotePermission
+  attr_accessor :name
+  attr_accessor :permission
+
+  def initialize(name = nil, permission = nil)
+    @name = name
+    @permission = permission
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemotePermissionMapping
+class RemotePermissionMapping
+  attr_accessor :permission
+  attr_accessor :remoteEntities
+
+  def initialize(permission = nil, remoteEntities = nil)
+    @permission = permission
+    @remoteEntities = remoteEntities
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteCustomFieldValue
+class RemoteCustomFieldValue
+  attr_accessor :customfieldId
+  attr_accessor :key
+  attr_accessor :values
+
+  def initialize(customfieldId = nil, key = nil, values = nil)
+    @customfieldId = customfieldId
+    @key = key
+    @values = values
   end
 end
 
@@ -276,84 +414,6 @@ class RemoteConfiguration
     @allowUnassignedIssues = allowUnassignedIssues
     @allowVoting = allowVoting
     @allowWatching = allowWatching
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}AbstractRemoteConstant
-# abstract
-class AbstractRemoteConstant
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :icon
-
-  def initialize(id = nil, name = nil, description = nil, icon = nil)
-    @id = id
-    @name = name
-    @description = description
-    @icon = icon
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteIssueType
-class RemoteIssueType
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :icon
-
-  def initialize(id = nil, name = nil, description = nil, icon = nil)
-    @id = id
-    @name = name
-    @description = description
-    @icon = icon
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemotePriority
-class RemotePriority
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :icon
-  attr_accessor :color
-
-  def initialize(id = nil, name = nil, description = nil, icon = nil, color = nil)
-    @id = id
-    @name = name
-    @description = description
-    @icon = icon
-    @color = color
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteResolution
-class RemoteResolution
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :icon
-
-  def initialize(id = nil, name = nil, description = nil, icon = nil)
-    @id = id
-    @name = name
-    @description = description
-    @icon = icon
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteStatus
-class RemoteStatus
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :icon
-
-  def initialize(id = nil, name = nil, description = nil, icon = nil)
-    @id = id
-    @name = name
-    @description = description
-    @icon = icon
   end
 end
 
@@ -403,7 +463,7 @@ class RemoteRoleActors
 end
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteProjectRoleActors
-class RemoteProjectRoleActors
+class RemoteProjectRoleActors < RemoteRoleActors
   attr_accessor :projectRole
   attr_accessor :roleActors
   attr_accessor :users
@@ -414,36 +474,6 @@ class RemoteProjectRoleActors
     @roleActors = roleActors
     @users = users
     @project = project
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteField
-class RemoteField
-  attr_accessor :id
-  attr_accessor :name
-
-  def initialize(id = nil, name = nil)
-    @id = id
-    @name = name
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteFilter
-class RemoteFilter
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :author
-  attr_accessor :description
-  attr_accessor :project
-  attr_accessor :xml
-
-  def initialize(id = nil, name = nil, author = nil, description = nil, project = nil, xml = nil)
-    @id = id
-    @name = name
-    @author = author
-    @description = description
-    @project = project
-    @xml = xml
   end
 end
 
@@ -470,44 +500,8 @@ class RemoteComment
   end
 end
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteGroup
-class RemoteGroup
-  attr_accessor :name
-  attr_accessor :users
-
-  def initialize(name = nil, users = nil)
-    @name = name
-    @users = users
-  end
-end
-
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteAttachment
-class RemoteAttachment
-  attr_accessor :id
-  attr_accessor :author
-  attr_accessor :created
-  attr_accessor :filename
-  attr_accessor :filesize
-  attr_accessor :mimetype
-
-  def initialize(id = nil, author = nil, created = nil, filename = nil, filesize = nil, mimetype = nil)
-    @id = id
-    @author = author
-    @created = created
-    @filename = filename
-    @filesize = filesize
-    @mimetype = mimetype
-  end
-end
-
 # {http://exception.rpc.jira.atlassian.com}RemoteException
 class RemoteException < ::StandardError
-  def initialize
-  end
-end
-
-# {http://exception.rpc.jira.atlassian.com}RemoteValidationException
-class RemoteValidationException < ::StandardError
   def initialize
   end
 end
@@ -520,6 +514,12 @@ end
 
 # {http://exception.rpc.jira.atlassian.com}RemotePermissionException
 class RemotePermissionException < ::StandardError
+  def initialize
+  end
+end
+
+# {http://exception.rpc.jira.atlassian.com}RemoteValidationException
+class RemoteValidationException < ::StandardError
   def initialize
   end
 end
