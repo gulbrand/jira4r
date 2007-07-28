@@ -58,15 +58,14 @@ task :generate do
     worker.basedir = "lib/jira4r/v#{version}"
     
     worker.opt['force'] = true
-    worker.opt['classdef'] = 'jiraService'
-    worker.opt['driver'] = 'JiraSoapService'
-    worker.opt['module_path'] ='Jira'
+    worker.opt['classdef'] = "jiraService"
+    worker.opt['driver'] = "JiraSoapService"
+    worker.opt['mapping_registry'] = 'DefaultMappingRegistry'
+    worker.opt['module_path'] ="Jira4R::V#{version}"
     
     mkdir_p worker.basedir
     
     worker.run
-    
-    fix_soap_files(version)
   }
 end
 
