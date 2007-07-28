@@ -1,6 +1,6 @@
 require 'xsd/qname'
 
-module Jira
+module Jira4R::V2
 
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteServerInfo

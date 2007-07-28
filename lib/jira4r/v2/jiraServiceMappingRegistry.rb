@@ -1,14 +1,14 @@
-require File.dirname(__FILE__) + '/jiraService.rb'
+require 'jiraService.rb'
 require 'soap/mapping'
 
-module Jira
+module Jira4R; module V2
 
 module DefaultMappingRegistry
   EncodedRegistry = ::SOAP::Mapping::EncodedRegistry.new
   LiteralRegistry = ::SOAP::Mapping::LiteralRegistry.new
 
   EncodedRegistry.register(
-    :class => Jira::RemoteServerInfo,
+    :class => Jira4R::V2::RemoteServerInfo,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteServerInfo",
     :schema_element => [
@@ -21,14 +21,14 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteEntity,
+    :class => Jira4R::V2::RemoteEntity,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteEntity",
     :schema_element => []
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteUser,
+    :class => Jira4R::V2::RemoteUser,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteUser",
     :schema_element => [
@@ -39,7 +39,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteScheme,
+    :class => Jira4R::V2::RemoteScheme,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteScheme",
     :schema_element => [
@@ -51,7 +51,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemotePermission,
+    :class => Jira4R::V2::RemotePermission,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePermission",
     :schema_element => [
@@ -61,17 +61,17 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemotePermissionMapping,
+    :class => Jira4R::V2::RemotePermissionMapping,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePermissionMapping",
     :schema_element => [
-      ["permission", ["Jira::RemotePermission", XSD::QName.new(nil, "permission")]],
-      ["remoteEntities", ["Jira::ArrayOf_tns1_RemoteEntity", XSD::QName.new(nil, "remoteEntities")]]
+      ["permission", ["Jira4R::V2::RemotePermission", XSD::QName.new(nil, "permission")]],
+      ["remoteEntities", ["Jira4R::V2::ArrayOf_tns1_RemoteEntity", XSD::QName.new(nil, "remoteEntities")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemotePermissionScheme,
+    :class => Jira4R::V2::RemotePermissionScheme,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePermissionScheme",
     :schema_element => [
@@ -79,30 +79,30 @@ module DefaultMappingRegistry
       ["id", ["SOAP::SOAPLong", XSD::QName.new(nil, "id")]],
       ["name", ["SOAP::SOAPString", XSD::QName.new(nil, "name")]],
       ["type", ["SOAP::SOAPString", XSD::QName.new(nil, "type")]],
-      ["permissionMappings", ["Jira::ArrayOf_tns1_RemotePermissionMapping", XSD::QName.new(nil, "permissionMappings")]]
+      ["permissionMappings", ["Jira4R::V2::ArrayOf_tns1_RemotePermissionMapping", XSD::QName.new(nil, "permissionMappings")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteProject,
+    :class => Jira4R::V2::RemoteProject,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteProject",
     :schema_element => [
       ["id", ["SOAP::SOAPString", XSD::QName.new(nil, "id")]],
       ["name", ["SOAP::SOAPString", XSD::QName.new(nil, "name")]],
       ["description", ["SOAP::SOAPString", XSD::QName.new(nil, "description")]],
-      ["issueSecurityScheme", ["Jira::RemoteScheme", XSD::QName.new(nil, "issueSecurityScheme")]],
+      ["issueSecurityScheme", ["Jira4R::V2::RemoteScheme", XSD::QName.new(nil, "issueSecurityScheme")]],
       ["key", ["SOAP::SOAPString", XSD::QName.new(nil, "key")]],
       ["lead", ["SOAP::SOAPString", XSD::QName.new(nil, "lead")]],
-      ["notificationScheme", ["Jira::RemoteScheme", XSD::QName.new(nil, "notificationScheme")]],
-      ["permissionScheme", ["Jira::RemotePermissionScheme", XSD::QName.new(nil, "permissionScheme")]],
+      ["notificationScheme", ["Jira4R::V2::RemoteScheme", XSD::QName.new(nil, "notificationScheme")]],
+      ["permissionScheme", ["Jira4R::V2::RemotePermissionScheme", XSD::QName.new(nil, "permissionScheme")]],
       ["projectUrl", ["SOAP::SOAPString", XSD::QName.new(nil, "projectUrl")]],
       ["url", ["SOAP::SOAPString", XSD::QName.new(nil, "url")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteVersion,
+    :class => Jira4R::V2::RemoteVersion,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteVersion",
     :schema_element => [
@@ -116,7 +116,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteComponent,
+    :class => Jira4R::V2::RemoteComponent,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteComponent",
     :schema_element => [
@@ -126,32 +126,32 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteCustomFieldValue,
+    :class => Jira4R::V2::RemoteCustomFieldValue,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteCustomFieldValue",
     :schema_element => [
       ["customfieldId", ["SOAP::SOAPString", XSD::QName.new(nil, "customfieldId")]],
       ["key", ["SOAP::SOAPString", XSD::QName.new(nil, "key")]],
-      ["values", ["Jira::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
+      ["values", ["Jira4R::V2::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteIssue,
+    :class => Jira4R::V2::RemoteIssue,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteIssue",
     :schema_element => [
       ["id", ["SOAP::SOAPString", XSD::QName.new(nil, "id")]],
-      ["affectsVersions", ["Jira::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "affectsVersions")]],
+      ["affectsVersions", ["Jira4R::V2::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "affectsVersions")]],
       ["assignee", ["SOAP::SOAPString", XSD::QName.new(nil, "assignee")]],
-      ["attachmentNames", ["Jira::ArrayOf_xsd_string", XSD::QName.new(nil, "attachmentNames")]],
-      ["components", ["Jira::ArrayOf_tns1_RemoteComponent", XSD::QName.new(nil, "components")]],
+      ["attachmentNames", ["Jira4R::V2::ArrayOf_xsd_string", XSD::QName.new(nil, "attachmentNames")]],
+      ["components", ["Jira4R::V2::ArrayOf_tns1_RemoteComponent", XSD::QName.new(nil, "components")]],
       ["created", ["SOAP::SOAPDateTime", XSD::QName.new(nil, "created")]],
-      ["customFieldValues", ["Jira::ArrayOf_tns1_RemoteCustomFieldValue", XSD::QName.new(nil, "customFieldValues")]],
+      ["customFieldValues", ["Jira4R::V2::ArrayOf_tns1_RemoteCustomFieldValue", XSD::QName.new(nil, "customFieldValues")]],
       ["description", ["SOAP::SOAPString", XSD::QName.new(nil, "description")]],
       ["duedate", ["SOAP::SOAPDateTime", XSD::QName.new(nil, "duedate")]],
       ["environment", ["SOAP::SOAPString", XSD::QName.new(nil, "environment")]],
-      ["fixVersions", ["Jira::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "fixVersions")]],
+      ["fixVersions", ["Jira4R::V2::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "fixVersions")]],
       ["key", ["SOAP::SOAPString", XSD::QName.new(nil, "key")]],
       ["priority", ["SOAP::SOAPString", XSD::QName.new(nil, "priority")]],
       ["project", ["SOAP::SOAPString", XSD::QName.new(nil, "project")]],
@@ -166,7 +166,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteNamedObject,
+    :class => Jira4R::V2::RemoteNamedObject,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteNamedObject",
     :schema_element => [
@@ -176,17 +176,17 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteFieldValue,
+    :class => Jira4R::V2::RemoteFieldValue,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteFieldValue",
     :schema_element => [
       ["id", ["SOAP::SOAPString", XSD::QName.new(nil, "id")]],
-      ["values", ["Jira::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
+      ["values", ["Jira4R::V2::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteConfiguration,
+    :class => Jira4R::V2::RemoteConfiguration,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteConfiguration",
     :schema_element => [
@@ -202,7 +202,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteIssueType,
+    :class => Jira4R::V2::RemoteIssueType,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteIssueType",
     :schema_element => [
@@ -214,7 +214,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemotePriority,
+    :class => Jira4R::V2::RemotePriority,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePriority",
     :schema_element => [
@@ -227,7 +227,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteResolution,
+    :class => Jira4R::V2::RemoteResolution,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteResolution",
     :schema_element => [
@@ -239,7 +239,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteStatus,
+    :class => Jira4R::V2::RemoteStatus,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteStatus",
     :schema_element => [
@@ -251,7 +251,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteProjectRole,
+    :class => Jira4R::V2::RemoteProjectRole,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteProjectRole",
     :schema_element => [
@@ -262,44 +262,44 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteRoleActor,
+    :class => Jira4R::V2::RemoteRoleActor,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteRoleActor",
     :schema_element => [
       ["descriptor", ["SOAP::SOAPString", XSD::QName.new(nil, "descriptor")]],
       ["parameter", ["SOAP::SOAPString", XSD::QName.new(nil, "parameter")]],
       ["prettyName", ["SOAP::SOAPString", XSD::QName.new(nil, "prettyName")]],
-      ["projectRole", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
+      ["projectRole", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
       ["type", ["SOAP::SOAPString", XSD::QName.new(nil, "type")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteRoleActors,
+    :class => Jira4R::V2::RemoteRoleActors,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteRoleActors",
     :schema_element => [
-      ["projectRole", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
-      ["roleActors", ["Jira::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
+      ["projectRole", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
+      ["roleActors", ["Jira4R::V2::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteProjectRoleActors,
+    :class => Jira4R::V2::RemoteProjectRoleActors,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteProjectRoleActors",
     :schema_element => [
-      ["projectRole", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
-      ["roleActors", ["Jira::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]],
-      ["project", ["Jira::RemoteProject", XSD::QName.new(nil, "project")]]
+      ["projectRole", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
+      ["roleActors", ["Jira4R::V2::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]],
+      ["project", ["Jira4R::V2::RemoteProject", XSD::QName.new(nil, "project")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteField,
+    :class => Jira4R::V2::RemoteField,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteField",
     :schema_element => [
@@ -309,7 +309,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteFilter,
+    :class => Jira4R::V2::RemoteFilter,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteFilter",
     :schema_element => [
@@ -323,7 +323,7 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteComment,
+    :class => Jira4R::V2::RemoteComment,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteComment",
     :schema_element => [
@@ -339,17 +339,17 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteGroup,
+    :class => Jira4R::V2::RemoteGroup,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteGroup",
     :schema_element => [
       ["name", ["SOAP::SOAPString", XSD::QName.new(nil, "name")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
     ]
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteAttachment,
+    :class => Jira4R::V2::RemoteAttachment,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteAttachment",
     :schema_element => [
@@ -363,210 +363,210 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteException,
+    :class => Jira4R::V2::RemoteException,
     :schema_ns => "http://exception.rpc.jira.atlassian.com",
     :schema_type => "RemoteException",
     :schema_element => []
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemoteValidationException,
-    :schema_ns => "http://exception.rpc.jira.atlassian.com",
-    :schema_type => "RemoteValidationException",
-    :schema_element => []
-  )
-
-  EncodedRegistry.register(
-    :class => Jira::RemoteAuthenticationException,
+    :class => Jira4R::V2::RemoteAuthenticationException,
     :schema_ns => "http://exception.rpc.jira.atlassian.com",
     :schema_type => "RemoteAuthenticationException",
     :schema_element => []
   )
 
   EncodedRegistry.register(
-    :class => Jira::RemotePermissionException,
+    :class => Jira4R::V2::RemotePermissionException,
     :schema_ns => "http://exception.rpc.jira.atlassian.com",
     :schema_type => "RemotePermissionException",
     :schema_element => []
   )
 
+  EncodedRegistry.register(
+    :class => Jira4R::V2::RemoteValidationException,
+    :schema_ns => "http://exception.rpc.jira.atlassian.com",
+    :schema_type => "RemoteValidationException",
+    :schema_element => []
+  )
+
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteEntity,
+    Jira4R::V2::ArrayOf_tns1_RemoteEntity,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteEntity") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemotePermissionMapping,
+    Jira4R::V2::ArrayOf_tns1_RemotePermissionMapping,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionMapping") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteVersion,
+    Jira4R::V2::ArrayOf_tns1_RemoteVersion,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteVersion") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_xsd_string,
+    Jira4R::V2::ArrayOf_xsd_string,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://www.w3.org/2001/XMLSchema", "string") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteComponent,
+    Jira4R::V2::ArrayOf_tns1_RemoteComponent,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteComponent") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteCustomFieldValue,
+    Jira4R::V2::ArrayOf_tns1_RemoteCustomFieldValue,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteCustomFieldValue") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteNamedObject,
+    Jira4R::V2::ArrayOf_tns1_RemoteNamedObject,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteNamedObject") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteProject,
+    Jira4R::V2::ArrayOf_tns1_RemoteProject,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteProject") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteFieldValue,
+    Jira4R::V2::ArrayOf_tns1_RemoteFieldValue,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteFieldValue") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteIssueType,
+    Jira4R::V2::ArrayOf_tns1_RemoteIssueType,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteIssueType") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemotePriority,
+    Jira4R::V2::ArrayOf_tns1_RemotePriority,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePriority") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteResolution,
+    Jira4R::V2::ArrayOf_tns1_RemoteResolution,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteResolution") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteStatus,
+    Jira4R::V2::ArrayOf_tns1_RemoteStatus,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteStatus") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteProjectRole,
+    Jira4R::V2::ArrayOf_tns1_RemoteProjectRole,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteUser,
+    Jira4R::V2::ArrayOf_tns1_RemoteUser,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteUser") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteRoleActor,
+    Jira4R::V2::ArrayOf_tns1_RemoteRoleActor,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteRoleActor") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteScheme,
+    Jira4R::V2::ArrayOf_tns1_RemoteScheme,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteScheme") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteField,
+    Jira4R::V2::ArrayOf_tns1_RemoteField,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteField") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteFilter,
+    Jira4R::V2::ArrayOf_tns1_RemoteFilter,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteFilter") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteComment,
+    Jira4R::V2::ArrayOf_tns1_RemoteComment,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteComment") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_xsd_base64Binary,
+    Jira4R::V2::ArrayOf_xsd_base64Binary,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://www.w3.org/2001/XMLSchema", "byte[]") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteAttachment,
+    Jira4R::V2::ArrayOf_tns1_RemoteAttachment,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteAttachment") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemotePermissionScheme,
+    Jira4R::V2::ArrayOf_tns1_RemotePermissionScheme,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemotePermission,
+    Jira4R::V2::ArrayOf_tns1_RemotePermission,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemotePermission") }
   )
 
   EncodedRegistry.set(
-    Jira::ArrayOf_tns1_RemoteIssue,
+    Jira4R::V2::ArrayOf_tns1_RemoteIssue,
     ::SOAP::SOAPArray,
     ::SOAP::Mapping::EncodedRegistry::TypedArrayFactory,
     { :type => XSD::QName.new("http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue") }
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteServerInfo,
+    :class => Jira4R::V2::RemoteServerInfo,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteServerInfo",
     :schema_qualified => false,
@@ -580,7 +580,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteEntity,
+    :class => Jira4R::V2::RemoteEntity,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteEntity",
     :schema_qualified => false,
@@ -588,7 +588,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteUser,
+    :class => Jira4R::V2::RemoteUser,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteUser",
     :schema_qualified => false,
@@ -600,7 +600,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteScheme,
+    :class => Jira4R::V2::RemoteScheme,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteScheme",
     :schema_qualified => false,
@@ -613,7 +613,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemotePermission,
+    :class => Jira4R::V2::RemotePermission,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePermission",
     :schema_qualified => false,
@@ -624,18 +624,18 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemotePermissionMapping,
+    :class => Jira4R::V2::RemotePermissionMapping,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePermissionMapping",
     :schema_qualified => false,
     :schema_element => [
-      ["permission", ["Jira::RemotePermission", XSD::QName.new(nil, "permission")]],
-      ["remoteEntities", ["Jira::ArrayOf_tns1_RemoteEntity", XSD::QName.new(nil, "remoteEntities")]]
+      ["permission", ["Jira4R::V2::RemotePermission", XSD::QName.new(nil, "permission")]],
+      ["remoteEntities", ["Jira4R::V2::ArrayOf_tns1_RemoteEntity", XSD::QName.new(nil, "remoteEntities")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemotePermissionScheme,
+    :class => Jira4R::V2::RemotePermissionScheme,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePermissionScheme",
     :schema_qualified => false,
@@ -644,12 +644,12 @@ module DefaultMappingRegistry
       ["id", ["SOAP::SOAPLong", XSD::QName.new(nil, "id")]],
       ["name", ["SOAP::SOAPString", XSD::QName.new(nil, "name")]],
       ["type", ["SOAP::SOAPString", XSD::QName.new(nil, "type")]],
-      ["permissionMappings", ["Jira::ArrayOf_tns1_RemotePermissionMapping", XSD::QName.new(nil, "permissionMappings")]]
+      ["permissionMappings", ["Jira4R::V2::ArrayOf_tns1_RemotePermissionMapping", XSD::QName.new(nil, "permissionMappings")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteProject,
+    :class => Jira4R::V2::RemoteProject,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteProject",
     :schema_qualified => false,
@@ -657,18 +657,18 @@ module DefaultMappingRegistry
       ["id", ["SOAP::SOAPString", XSD::QName.new(nil, "id")]],
       ["name", ["SOAP::SOAPString", XSD::QName.new(nil, "name")]],
       ["description", ["SOAP::SOAPString", XSD::QName.new(nil, "description")]],
-      ["issueSecurityScheme", ["Jira::RemoteScheme", XSD::QName.new(nil, "issueSecurityScheme")]],
+      ["issueSecurityScheme", ["Jira4R::V2::RemoteScheme", XSD::QName.new(nil, "issueSecurityScheme")]],
       ["key", ["SOAP::SOAPString", XSD::QName.new(nil, "key")]],
       ["lead", ["SOAP::SOAPString", XSD::QName.new(nil, "lead")]],
-      ["notificationScheme", ["Jira::RemoteScheme", XSD::QName.new(nil, "notificationScheme")]],
-      ["permissionScheme", ["Jira::RemotePermissionScheme", XSD::QName.new(nil, "permissionScheme")]],
+      ["notificationScheme", ["Jira4R::V2::RemoteScheme", XSD::QName.new(nil, "notificationScheme")]],
+      ["permissionScheme", ["Jira4R::V2::RemotePermissionScheme", XSD::QName.new(nil, "permissionScheme")]],
       ["projectUrl", ["SOAP::SOAPString", XSD::QName.new(nil, "projectUrl")]],
       ["url", ["SOAP::SOAPString", XSD::QName.new(nil, "url")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteVersion,
+    :class => Jira4R::V2::RemoteVersion,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteVersion",
     :schema_qualified => false,
@@ -683,7 +683,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteComponent,
+    :class => Jira4R::V2::RemoteComponent,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteComponent",
     :schema_qualified => false,
@@ -694,34 +694,34 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteCustomFieldValue,
+    :class => Jira4R::V2::RemoteCustomFieldValue,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteCustomFieldValue",
     :schema_qualified => false,
     :schema_element => [
       ["customfieldId", ["SOAP::SOAPString", XSD::QName.new(nil, "customfieldId")]],
       ["key", ["SOAP::SOAPString", XSD::QName.new(nil, "key")]],
-      ["values", ["Jira::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
+      ["values", ["Jira4R::V2::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteIssue,
+    :class => Jira4R::V2::RemoteIssue,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteIssue",
     :schema_qualified => false,
     :schema_element => [
       ["id", ["SOAP::SOAPString", XSD::QName.new(nil, "id")]],
-      ["affectsVersions", ["Jira::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "affectsVersions")]],
+      ["affectsVersions", ["Jira4R::V2::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "affectsVersions")]],
       ["assignee", ["SOAP::SOAPString", XSD::QName.new(nil, "assignee")]],
-      ["attachmentNames", ["Jira::ArrayOf_xsd_string", XSD::QName.new(nil, "attachmentNames")]],
-      ["components", ["Jira::ArrayOf_tns1_RemoteComponent", XSD::QName.new(nil, "components")]],
+      ["attachmentNames", ["Jira4R::V2::ArrayOf_xsd_string", XSD::QName.new(nil, "attachmentNames")]],
+      ["components", ["Jira4R::V2::ArrayOf_tns1_RemoteComponent", XSD::QName.new(nil, "components")]],
       ["created", ["SOAP::SOAPDateTime", XSD::QName.new(nil, "created")]],
-      ["customFieldValues", ["Jira::ArrayOf_tns1_RemoteCustomFieldValue", XSD::QName.new(nil, "customFieldValues")]],
+      ["customFieldValues", ["Jira4R::V2::ArrayOf_tns1_RemoteCustomFieldValue", XSD::QName.new(nil, "customFieldValues")]],
       ["description", ["SOAP::SOAPString", XSD::QName.new(nil, "description")]],
       ["duedate", ["SOAP::SOAPDateTime", XSD::QName.new(nil, "duedate")]],
       ["environment", ["SOAP::SOAPString", XSD::QName.new(nil, "environment")]],
-      ["fixVersions", ["Jira::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "fixVersions")]],
+      ["fixVersions", ["Jira4R::V2::ArrayOf_tns1_RemoteVersion", XSD::QName.new(nil, "fixVersions")]],
       ["key", ["SOAP::SOAPString", XSD::QName.new(nil, "key")]],
       ["priority", ["SOAP::SOAPString", XSD::QName.new(nil, "priority")]],
       ["project", ["SOAP::SOAPString", XSD::QName.new(nil, "project")]],
@@ -736,7 +736,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteNamedObject,
+    :class => Jira4R::V2::RemoteNamedObject,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteNamedObject",
     :schema_qualified => false,
@@ -747,18 +747,18 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteFieldValue,
+    :class => Jira4R::V2::RemoteFieldValue,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteFieldValue",
     :schema_qualified => false,
     :schema_element => [
       ["id", ["SOAP::SOAPString", XSD::QName.new(nil, "id")]],
-      ["values", ["Jira::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
+      ["values", ["Jira4R::V2::ArrayOf_xsd_string", XSD::QName.new(nil, "values")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteConfiguration,
+    :class => Jira4R::V2::RemoteConfiguration,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteConfiguration",
     :schema_qualified => false,
@@ -775,7 +775,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteIssueType,
+    :class => Jira4R::V2::RemoteIssueType,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteIssueType",
     :schema_qualified => false,
@@ -788,7 +788,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemotePriority,
+    :class => Jira4R::V2::RemotePriority,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemotePriority",
     :schema_qualified => false,
@@ -802,7 +802,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteResolution,
+    :class => Jira4R::V2::RemoteResolution,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteResolution",
     :schema_qualified => false,
@@ -815,7 +815,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteStatus,
+    :class => Jira4R::V2::RemoteStatus,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteStatus",
     :schema_qualified => false,
@@ -828,7 +828,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteProjectRole,
+    :class => Jira4R::V2::RemoteProjectRole,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteProjectRole",
     :schema_qualified => false,
@@ -840,7 +840,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteRoleActor,
+    :class => Jira4R::V2::RemoteRoleActor,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteRoleActor",
     :schema_qualified => false,
@@ -848,39 +848,39 @@ module DefaultMappingRegistry
       ["descriptor", ["SOAP::SOAPString", XSD::QName.new(nil, "descriptor")]],
       ["parameter", ["SOAP::SOAPString", XSD::QName.new(nil, "parameter")]],
       ["prettyName", ["SOAP::SOAPString", XSD::QName.new(nil, "prettyName")]],
-      ["projectRole", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
+      ["projectRole", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
       ["type", ["SOAP::SOAPString", XSD::QName.new(nil, "type")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteRoleActors,
+    :class => Jira4R::V2::RemoteRoleActors,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteRoleActors",
     :schema_qualified => false,
     :schema_element => [
-      ["projectRole", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
-      ["roleActors", ["Jira::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
+      ["projectRole", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
+      ["roleActors", ["Jira4R::V2::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteProjectRoleActors,
+    :class => Jira4R::V2::RemoteProjectRoleActors,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteProjectRoleActors",
     :schema_qualified => false,
     :schema_element => [
-      ["projectRole", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
-      ["roleActors", ["Jira::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]],
-      ["project", ["Jira::RemoteProject", XSD::QName.new(nil, "project")]]
+      ["projectRole", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "projectRole")]],
+      ["roleActors", ["Jira4R::V2::ArrayOf_tns1_RemoteRoleActor", XSD::QName.new(nil, "roleActors")]],
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]],
+      ["project", ["Jira4R::V2::RemoteProject", XSD::QName.new(nil, "project")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteField,
+    :class => Jira4R::V2::RemoteField,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteField",
     :schema_qualified => false,
@@ -891,7 +891,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteFilter,
+    :class => Jira4R::V2::RemoteFilter,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteFilter",
     :schema_qualified => false,
@@ -906,7 +906,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteComment,
+    :class => Jira4R::V2::RemoteComment,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteComment",
     :schema_qualified => false,
@@ -923,18 +923,18 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteGroup,
+    :class => Jira4R::V2::RemoteGroup,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteGroup",
     :schema_qualified => false,
     :schema_element => [
       ["name", ["SOAP::SOAPString", XSD::QName.new(nil, "name")]],
-      ["users", ["Jira::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
+      ["users", ["Jira4R::V2::ArrayOf_tns1_RemoteUser", XSD::QName.new(nil, "users")]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteAttachment,
+    :class => Jira4R::V2::RemoteAttachment,
     :schema_ns => "http://beans.soap.rpc.jira.atlassian.com",
     :schema_type => "RemoteAttachment",
     :schema_qualified => false,
@@ -949,7 +949,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteException,
+    :class => Jira4R::V2::RemoteException,
     :schema_ns => "http://exception.rpc.jira.atlassian.com",
     :schema_type => "RemoteException",
     :schema_qualified => false,
@@ -957,15 +957,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemoteValidationException,
-    :schema_ns => "http://exception.rpc.jira.atlassian.com",
-    :schema_type => "RemoteValidationException",
-    :schema_qualified => false,
-    :schema_element => []
-  )
-
-  LiteralRegistry.register(
-    :class => Jira::RemoteAuthenticationException,
+    :class => Jira4R::V2::RemoteAuthenticationException,
     :schema_ns => "http://exception.rpc.jira.atlassian.com",
     :schema_type => "RemoteAuthenticationException",
     :schema_qualified => false,
@@ -973,7 +965,7 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::RemotePermissionException,
+    :class => Jira4R::V2::RemotePermissionException,
     :schema_ns => "http://exception.rpc.jira.atlassian.com",
     :schema_type => "RemotePermissionException",
     :schema_qualified => false,
@@ -981,229 +973,237 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteEntity,
+    :class => Jira4R::V2::RemoteValidationException,
+    :schema_ns => "http://exception.rpc.jira.atlassian.com",
+    :schema_type => "RemoteValidationException",
+    :schema_qualified => false,
+    :schema_element => []
+  )
+
+  LiteralRegistry.register(
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteEntity,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteEntity",
     :schema_element => [
-      ["item", ["Jira::RemoteEntity", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteEntity", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemotePermissionMapping,
+    :class => Jira4R::V2::ArrayOf_tns1_RemotePermissionMapping,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemotePermissionMapping",
     :schema_element => [
-      ["item", ["Jira::RemotePermissionMapping", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemotePermissionMapping", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteVersion,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteVersion,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteVersion",
     :schema_element => [
-      ["item", ["Jira::RemoteVersion", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteVersion", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_xsd_string,
+    :class => Jira4R::V2::ArrayOf_xsd_string,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_xsd_string",
     :schema_element => [
-      ["item", ["String", XSD::QName.new(nil, "item")]]
+      ["item", ["String", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteComponent,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteComponent,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteComponent",
     :schema_element => [
-      ["item", ["Jira::RemoteComponent", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteComponent", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteCustomFieldValue,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteCustomFieldValue,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteCustomFieldValue",
     :schema_element => [
-      ["item", ["Jira::RemoteCustomFieldValue", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteCustomFieldValue", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteNamedObject,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteNamedObject,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteNamedObject",
     :schema_element => [
-      ["item", ["Jira::RemoteNamedObject", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteNamedObject", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteProject,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteProject,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteProject",
     :schema_element => [
-      ["item", ["Jira::RemoteProject", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteProject", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteFieldValue,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteFieldValue,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteFieldValue",
     :schema_element => [
-      ["item", ["Jira::RemoteFieldValue", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteFieldValue", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteIssueType,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteIssueType,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteIssueType",
     :schema_element => [
-      ["item", ["Jira::RemoteIssueType", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteIssueType", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemotePriority,
+    :class => Jira4R::V2::ArrayOf_tns1_RemotePriority,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemotePriority",
     :schema_element => [
-      ["item", ["Jira::RemotePriority", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemotePriority", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteResolution,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteResolution,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteResolution",
     :schema_element => [
-      ["item", ["Jira::RemoteResolution", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteResolution", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteStatus,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteStatus,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteStatus",
     :schema_element => [
-      ["item", ["Jira::RemoteStatus", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteStatus", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteProjectRole,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteProjectRole,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteProjectRole",
     :schema_element => [
-      ["item", ["Jira::RemoteProjectRole", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteProjectRole", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteUser,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteUser,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteUser",
     :schema_element => [
-      ["item", ["Jira::RemoteUser", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteUser", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteRoleActor,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteRoleActor,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteRoleActor",
     :schema_element => [
-      ["item", ["Jira::RemoteRoleActor", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteRoleActor", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteScheme,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteScheme,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteScheme",
     :schema_element => [
-      ["item", ["Jira::RemoteScheme", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteScheme", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteField,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteField,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteField",
     :schema_element => [
-      ["item", ["Jira::RemoteField", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteField", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteFilter,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteFilter,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteFilter",
     :schema_element => [
-      ["item", ["Jira::RemoteFilter", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteFilter", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteComment,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteComment,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteComment",
     :schema_element => [
-      ["item", ["Jira::RemoteComment", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteComment", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_xsd_base64Binary,
+    :class => Jira4R::V2::ArrayOf_xsd_base64Binary,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_xsd_base64Binary",
     :schema_element => [
-      ["item", ["Jira::Byte", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::Byte", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteAttachment,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteAttachment,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteAttachment",
     :schema_element => [
-      ["item", ["Jira::RemoteAttachment", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteAttachment", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemotePermissionScheme,
+    :class => Jira4R::V2::ArrayOf_tns1_RemotePermissionScheme,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemotePermissionScheme",
     :schema_element => [
-      ["item", ["Jira::RemotePermissionScheme", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemotePermissionScheme", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemotePermission,
+    :class => Jira4R::V2::ArrayOf_tns1_RemotePermission,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemotePermission",
     :schema_element => [
-      ["item", ["Jira::RemotePermission", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemotePermission", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 
   LiteralRegistry.register(
-    :class => Jira::ArrayOf_tns1_RemoteIssue,
+    :class => Jira4R::V2::ArrayOf_tns1_RemoteIssue,
     :schema_ns => "http://localhost:8080/rpc/soap/jirasoapservice-v2",
     :schema_type => "ArrayOf_tns1_RemoteIssue",
     :schema_element => [
-      ["item", ["Jira::RemoteIssue", XSD::QName.new(nil, "item")]]
+      ["item", ["Jira4R::V2::RemoteIssue", XSD::QName.new(nil, "item")], [0, nil]]
     ]
   )
 end
 
-end
+end; end
