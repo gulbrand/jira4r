@@ -5,9 +5,30 @@ module Jira4R::V2
 require 'soap/rpc/driver'
 
 class JiraSoapService < ::SOAP::RPC::Driver
-  DefaultEndpointUrl = "http://localhost:8080/rpc/soap/jirasoapservice-v2"
+  DefaultEndpointUrl = "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"
 
   Methods = [
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComment"),
+      "",
+      "getComment",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPLong"]],
+        ["retval", "getCommentReturn", ["Jira4R::V2::RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded,
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createGroup"),
+      "",
+      "createGroup",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["in", "in2", ["Jira4R::V2::RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]],
+        ["retval", "createGroupReturn", ["Jira4R::V2::RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded,
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
+    ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getServerInfo"),
       "",
       "getServerInfo",
@@ -17,6 +38,16 @@ class JiraSoapService < ::SOAP::RPC::Driver
         :response_style => :rpc, :response_use => :encoded,
         :faults => {} }
     ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getGroup"),
+      "",
+      "getGroup",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getGroupReturn", ["Jira4R::V2::RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded,
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
+    ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "login"),
       "",
       "login",
@@ -25,7 +56,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "loginReturn", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getUser"),
       "",
@@ -35,7 +66,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getUserReturn", ["Jira4R::V2::RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createUser"),
       "",
@@ -48,7 +79,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "createUserReturn", ["Jira4R::V2::RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProject"),
       "",
@@ -58,7 +89,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getProjectReturn", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssue"),
       "",
@@ -68,7 +99,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getIssueReturn", ["Jira4R::V2::RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createIssue"),
       "",
@@ -78,37 +109,37 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "createIssueReturn", ["Jira4R::V2::RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getAvailableActions"),
       "",
       "getAvailableActions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getAvailableActionsReturn", ["Jira4R::V2::RemoteNamedObject[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteNamedObject"]] ],
+        ["retval", "getAvailableActionsReturn", ["Jira4R::V2::RemoteNamedObject[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteNamedObject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjects"),
       "",
       "getProjects",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getProjectsReturn", ["Jira4R::V2::RemoteProject[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProject"]] ],
+        ["retval", "getProjectsReturn", ["Jira4R::V2::RemoteProject[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "updateIssue"),
       "",
       "updateIssue",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["in", "in2", ["Jira4R::V2::RemoteFieldValue[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFieldValue"]],
+        ["in", "in2", ["Jira4R::V2::RemoteFieldValue[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFieldValue"]],
         ["retval", "updateIssueReturn", ["Jira4R::V2::RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getConfiguration"),
       "",
@@ -117,7 +148,17 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getConfigurationReturn", ["Jira4R::V2::RemoteConfiguration", "http://beans.soap.rpc.jira.atlassian.com", "RemoteConfiguration"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComponents"),
+      "",
+      "getComponents",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["in", "in1", ["::SOAP::SOAPString"]],
+        ["retval", "getComponentsReturn", ["Jira4R::V2::RemoteComponent[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComponent"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded,
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "updateProject"),
       "",
@@ -127,61 +168,61 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "updateProjectReturn", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssueTypes"),
-      "",
-      "getIssueTypes",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getIssueTypesReturn", ["Jira4R::V2::RemoteIssueType[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssueType"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getPriorities"),
       "",
       "getPriorities",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getPrioritiesReturn", ["Jira4R::V2::RemotePriority[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePriority"]] ],
+        ["retval", "getPrioritiesReturn", ["Jira4R::V2::RemotePriority[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePriority"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getResolutions"),
       "",
       "getResolutions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getResolutionsReturn", ["Jira4R::V2::RemoteResolution[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteResolution"]] ],
+        ["retval", "getResolutionsReturn", ["Jira4R::V2::RemoteResolution[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteResolution"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
+    ],
+    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssueTypes"),
+      "",
+      "getIssueTypes",
+      [ ["in", "in0", ["::SOAP::SOAPString"]],
+        ["retval", "getIssueTypesReturn", ["Jira4R::V2::RemoteIssueType[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssueType"]] ],
+      { :request_style =>  :rpc, :request_use =>  :encoded,
+        :response_style => :rpc, :response_use => :encoded,
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getStatuses"),
       "",
       "getStatuses",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getStatusesReturn", ["Jira4R::V2::RemoteStatus[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteStatus"]] ],
+        ["retval", "getStatusesReturn", ["Jira4R::V2::RemoteStatus[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteStatus"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getSubTaskIssueTypes"),
       "",
       "getSubTaskIssueTypes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getSubTaskIssueTypesReturn", ["Jira4R::V2::RemoteIssueType[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssueType"]] ],
+        ["retval", "getSubTaskIssueTypesReturn", ["Jira4R::V2::RemoteIssueType[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssueType"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjectRoles"),
       "",
       "getProjectRoles",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getProjectRolesReturn", ["Jira4R::V2::RemoteProjectRole[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProjectRole"]] ],
+        ["retval", "getProjectRolesReturn", ["Jira4R::V2::RemoteProjectRole[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProjectRole"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjectRole"),
       "",
@@ -191,7 +232,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getProjectRoleReturn", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjectRoleActors"),
       "",
@@ -202,7 +243,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getProjectRoleActorsReturn", ["Jira4R::V2::RemoteProjectRoleActors", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRoleActors"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getDefaultRoleActors"),
       "",
@@ -212,7 +253,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getDefaultRoleActorsReturn", ["Jira4R::V2::RemoteRoleActors", "http://beans.soap.rpc.jira.atlassian.com", "RemoteRoleActors"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "removeAllRoleActorsByNameAndType"),
       "",
@@ -222,7 +263,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "removeAllRoleActorsByProject"),
       "",
@@ -231,7 +272,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in1", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "deleteProjectRole"),
       "",
@@ -241,7 +282,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["::SOAP::SOAPBoolean"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "updateProjectRole"),
       "",
@@ -250,7 +291,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in1", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createProjectRole"),
       "",
@@ -260,7 +301,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "createProjectRoleReturn", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "isProjectRoleNameUnique"),
       "",
@@ -270,101 +311,101 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "isProjectRoleNameUniqueReturn", ["::SOAP::SOAPBoolean"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addActorsToProjectRole"),
       "",
       "addActorsToProjectRole",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["Jira4R::V2::C_String[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in1", ["Jira4R::V2::C_String[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
         ["in", "in2", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]],
         ["in", "in3", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]],
         ["in", "in4", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "removeActorsFromProjectRole"),
       "",
       "removeActorsFromProjectRole",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["Jira4R::V2::C_String[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in1", ["Jira4R::V2::C_String[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
         ["in", "in2", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]],
         ["in", "in3", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]],
         ["in", "in4", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addDefaultActorsToProjectRole"),
       "",
       "addDefaultActorsToProjectRole",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["Jira4R::V2::C_String[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in1", ["Jira4R::V2::C_String[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
         ["in", "in2", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]],
         ["in", "in3", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "removeDefaultActorsFromProjectRole"),
       "",
       "removeDefaultActorsFromProjectRole",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["Jira4R::V2::C_String[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in1", ["Jira4R::V2::C_String[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
         ["in", "in2", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]],
         ["in", "in3", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getAssociatedNotificationSchemes"),
       "",
       "getAssociatedNotificationSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]],
-        ["retval", "getAssociatedNotificationSchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
+        ["retval", "getAssociatedNotificationSchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getAssociatedPermissionSchemes"),
       "",
       "getAssociatedPermissionSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["Jira4R::V2::RemoteProjectRole", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProjectRole"]],
-        ["retval", "getAssociatedPermissionSchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
+        ["retval", "getAssociatedPermissionSchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getCustomFields"),
       "",
       "getCustomFields",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getCustomFieldsReturn", ["Jira4R::V2::RemoteField[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
+        ["retval", "getCustomFieldsReturn", ["Jira4R::V2::RemoteField[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getSavedFilters"),
       "",
       "getSavedFilters",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getSavedFiltersReturn", ["Jira4R::V2::RemoteFilter[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFilter"]] ],
+        ["retval", "getSavedFiltersReturn", ["Jira4R::V2::RemoteFilter[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFilter"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComments"),
       "",
       "getComments",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getCommentsReturn", ["Jira4R::V2::RemoteComment[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComment"]] ],
+        ["retval", "getCommentsReturn", ["Jira4R::V2::RemoteComment[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComment"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "archiveVersion"),
       "",
@@ -375,17 +416,17 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in3", ["::SOAP::SOAPBoolean"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getVersions"),
       "",
       "getVersions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getVersionsReturn", ["Jira4R::V2::RemoteVersion[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteVersion"]] ],
+        ["retval", "getVersionsReturn", ["Jira4R::V2::RemoteVersion[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteVersion"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createProject"),
       "",
@@ -402,7 +443,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "createProjectReturn", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addComment"),
       "",
@@ -412,17 +453,17 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["Jira4R::V2::RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getFieldsForEdit"),
       "",
       "getFieldsForEdit",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getFieldsForEditReturn", ["Jira4R::V2::RemoteField[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
+        ["retval", "getFieldsForEditReturn", ["Jira4R::V2::RemoteField[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addUserToGroup"),
       "",
@@ -432,7 +473,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["Jira4R::V2::RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "removeUserFromGroup"),
       "",
@@ -442,7 +483,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["Jira4R::V2::RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "logout"),
       "",
@@ -460,7 +501,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in1", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "releaseVersion"),
       "",
@@ -470,7 +511,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["Jira4R::V2::RemoteVersion", "http://beans.soap.rpc.jira.atlassian.com", "RemoteVersion"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "deleteIssue"),
       "",
@@ -479,29 +520,29 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in1", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addAttachmentsToIssue"),
       "",
       "addAttachmentsToIssue",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["in", "in2", ["Jira4R::V2::C_String[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
-        ["in", "in3", ["Jira4R::V2::Byte[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_base64Binary"]],
+        ["in", "in2", ["Jira4R::V2::C_String[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in3", ["Jira4R::V2::Byte[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_base64Binary"]],
         ["retval", "addAttachmentsToIssueReturn", ["::SOAP::SOAPBoolean"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getAttachmentsFromIssue"),
       "",
       "getAttachmentsFromIssue",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getAttachmentsFromIssueReturn", ["Jira4R::V2::RemoteAttachment[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteAttachment"]] ],
+        ["retval", "getAttachmentsFromIssueReturn", ["Jira4R::V2::RemoteAttachment[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteAttachment"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "hasPermissionToEditComment"),
       "",
@@ -511,7 +552,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "hasPermissionToEditCommentReturn", ["::SOAP::SOAPBoolean"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "editComment"),
       "",
@@ -521,7 +562,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "editCommentReturn", ["Jira4R::V2::RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getFieldsForAction"),
       "",
@@ -529,10 +570,10 @@ class JiraSoapService < ::SOAP::RPC::Driver
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
         ["in", "in2", ["::SOAP::SOAPString"]],
-        ["retval", "getFieldsForActionReturn", ["Jira4R::V2::RemoteField[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
+        ["retval", "getFieldsForActionReturn", ["Jira4R::V2::RemoteField[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteField"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "progressWorkflowAction"),
       "",
@@ -540,11 +581,11 @@ class JiraSoapService < ::SOAP::RPC::Driver
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
         ["in", "in2", ["::SOAP::SOAPString"]],
-        ["in", "in3", ["Jira4R::V2::RemoteFieldValue[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFieldValue"]],
+        ["in", "in3", ["Jira4R::V2::RemoteFieldValue[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteFieldValue"]],
         ["retval", "progressWorkflowActionReturn", ["Jira4R::V2::RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssueById"),
       "",
@@ -554,25 +595,25 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getIssueByIdReturn", ["Jira4R::V2::RemoteIssue", "http://beans.soap.rpc.jira.atlassian.com", "RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getNotificationSchemes"),
       "",
       "getNotificationSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getNotificationSchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
+        ["retval", "getNotificationSchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getPermissionSchemes"),
       "",
       "getPermissionSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getPermissionSchemesReturn", ["Jira4R::V2::RemotePermissionScheme[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePermissionScheme"]] ],
+        ["retval", "getPermissionSchemesReturn", ["Jira4R::V2::RemotePermissionScheme[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePermissionScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createPermissionScheme"),
       "",
@@ -583,7 +624,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "createPermissionSchemeReturn", ["Jira4R::V2::RemotePermissionScheme", "http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "deletePermissionScheme"),
       "",
@@ -592,7 +633,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in1", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addPermissionTo"),
       "",
@@ -604,7 +645,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "addPermissionToReturn", ["Jira4R::V2::RemotePermissionScheme", "http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "deletePermissionFrom"),
       "",
@@ -616,16 +657,16 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "deletePermissionFromReturn", ["Jira4R::V2::RemotePermissionScheme", "http://beans.soap.rpc.jira.atlassian.com", "RemotePermissionScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getAllPermissions"),
       "",
       "getAllPermissions",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getAllPermissionsReturn", ["Jira4R::V2::RemotePermission[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePermission"]] ],
+        ["retval", "getAllPermissionsReturn", ["Jira4R::V2::RemotePermission[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemotePermission"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssueCountForFilter"),
       "",
@@ -635,29 +676,29 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getIssueCountForFilterReturn", ["::SOAP::SOAPLong"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssuesFromTextSearch"),
       "",
       "getIssuesFromTextSearch",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getIssuesFromTextSearchReturn", ["Jira4R::V2::RemoteIssue[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
+        ["retval", "getIssuesFromTextSearchReturn", ["Jira4R::V2::RemoteIssue[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssuesFromTextSearchWithProject"),
       "",
       "getIssuesFromTextSearchWithProject",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["Jira4R::V2::C_String[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
+        ["in", "in1", ["Jira4R::V2::C_String[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_xsd_string"]],
         ["in", "in2", ["::SOAP::SOAPString"]],
         ["in", "in3", ["::SOAP::SOAPInt"]],
-        ["retval", "getIssuesFromTextSearchWithProjectReturn", ["Jira4R::V2::RemoteIssue[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
+        ["retval", "getIssuesFromTextSearchWithProjectReturn", ["Jira4R::V2::RemoteIssue[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "deleteUser"),
       "",
@@ -666,7 +707,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in1", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "updateGroup"),
       "",
@@ -676,7 +717,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "updateGroupReturn", ["Jira4R::V2::RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "deleteGroup"),
       "",
@@ -686,7 +727,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["in", "in2", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "refreshCustomFields"),
       "",
@@ -694,7 +735,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
       [ ["in", "in0", ["::SOAP::SOAPString"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjectNoSchemes"),
       "",
@@ -704,16 +745,16 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "getProjectNoSchemesReturn", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getProjectsNoSchemes"),
       "",
       "getProjectsNoSchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getProjectsNoSchemesReturn", ["Jira4R::V2::RemoteProject[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProject"]] ],
+        ["retval", "getProjectsNoSchemesReturn", ["Jira4R::V2::RemoteProject[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "addVersion"),
       "",
@@ -724,7 +765,7 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "addVersionReturn", ["Jira4R::V2::RemoteVersion", "http://beans.soap.rpc.jira.atlassian.com", "RemoteVersion"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createProjectFromObject"),
       "",
@@ -734,67 +775,26 @@ class JiraSoapService < ::SOAP::RPC::Driver
         ["retval", "createProjectFromObjectReturn", ["Jira4R::V2::RemoteProject", "http://beans.soap.rpc.jira.atlassian.com", "RemoteProject"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getSecuritySchemes"),
       "",
       "getSecuritySchemes",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["retval", "getSecuritySchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
+        ["retval", "getSecuritySchemesReturn", ["Jira4R::V2::RemoteScheme[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteScheme"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ],
     [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getIssuesFromFilter"),
       "",
       "getIssuesFromFilter",
       [ ["in", "in0", ["::SOAP::SOAPString"]],
         ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getIssuesFromFilterReturn", ["Jira4R::V2::RemoteIssue[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
+        ["retval", "getIssuesFromFilterReturn", ["Jira4R::V2::RemoteIssue[]", "http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteIssue"]] ],
       { :request_style =>  :rpc, :request_use =>  :encoded,
         :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComment"),
-      "",
-      "getComment",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPLong"]],
-        ["retval", "getCommentReturn", ["Jira4R::V2::RemoteComment", "http://beans.soap.rpc.jira.atlassian.com", "RemoteComment"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "createGroup"),
-      "",
-      "createGroup",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["in", "in2", ["Jira4R::V2::RemoteUser", "http://beans.soap.rpc.jira.atlassian.com", "RemoteUser"]],
-        ["retval", "createGroupReturn", ["Jira4R::V2::RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getComponents"),
-      "",
-      "getComponents",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getComponentsReturn", ["Jira4R::V2::RemoteComponent[]", "http://localhost:8080/rpc/soap/jirasoapservice-v2", "ArrayOf_tns1_RemoteComponent"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
-    ],
-    [ XSD::QName.new("http://soap.rpc.jira.atlassian.com", "getGroup"),
-      "",
-      "getGroup",
-      [ ["in", "in0", ["::SOAP::SOAPString"]],
-        ["in", "in1", ["::SOAP::SOAPString"]],
-        ["retval", "getGroupReturn", ["Jira4R::V2::RemoteGroup", "http://beans.soap.rpc.jira.atlassian.com", "RemoteGroup"]] ],
-      { :request_style =>  :rpc, :request_use =>  :encoded,
-        :response_style => :rpc, :response_use => :encoded,
-        :faults => {"Jira4R::V2::RemoteValidationException"=>{:name=>"RemoteValidationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteAuthenticationException"=>{:name=>"RemoteAuthenticationException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}, "Jira4R::V2::RemotePermissionException"=>{:name=>"RemotePermissionException", :ns=>"http://localhost:8080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://localhost:8080/rpc/soap/jirasoapservice-v2"}} }
+        :faults => {"Jira4R::V2::RemoteException"=>{:name=>"RemoteException", :ns=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2", :encodingstyle=>"http://schemas.xmlsoap.org/soap/encoding/", :use=>"encoded", :namespace=>"http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2"}} }
     ]
   ]
 

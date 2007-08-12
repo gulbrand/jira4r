@@ -3,20 +3,26 @@ require 'xsd/qname'
 module Jira4R::V2
 
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteServerInfo
-class RemoteServerInfo
-  attr_accessor :baseUrl
-  attr_accessor :buildDate
-  attr_accessor :buildNumber
-  attr_accessor :edition
-  attr_accessor :version
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteComment
+class RemoteComment
+  attr_accessor :author
+  attr_accessor :body
+  attr_accessor :created
+  attr_accessor :groupLevel
+  attr_accessor :id
+  attr_accessor :roleLevel
+  attr_accessor :updateAuthor
+  attr_accessor :updated
 
-  def initialize(baseUrl = nil, buildDate = nil, buildNumber = nil, edition = nil, version = nil)
-    @baseUrl = baseUrl
-    @buildDate = buildDate
-    @buildNumber = buildNumber
-    @edition = edition
-    @version = version
+  def initialize(author = nil, body = nil, created = nil, groupLevel = nil, id = nil, roleLevel = nil, updateAuthor = nil, updated = nil)
+    @author = author
+    @body = body
+    @created = created
+    @groupLevel = groupLevel
+    @id = id
+    @roleLevel = roleLevel
+    @updateAuthor = updateAuthor
+    @updated = updated
   end
 end
 
@@ -47,6 +53,23 @@ class RemoteGroup < RemoteEntity
   def initialize(name = nil, users = nil)
     @name = name
     @users = users
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteServerInfo
+class RemoteServerInfo
+  attr_accessor :baseUrl
+  attr_accessor :buildDate
+  attr_accessor :buildNumber
+  attr_accessor :edition
+  attr_accessor :version
+
+  def initialize(baseUrl = nil, buildDate = nil, buildNumber = nil, edition = nil, version = nil)
+    @baseUrl = baseUrl
+    @buildDate = buildDate
+    @buildNumber = buildNumber
+    @edition = edition
+    @version = version
   end
 end
 
@@ -156,21 +179,6 @@ class AbstractRemoteConstant < AbstractNamedRemoteEntity
   end
 end
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteIssueType
-class RemoteIssueType < AbstractRemoteConstant
-  attr_accessor :id
-  attr_accessor :name
-  attr_accessor :description
-  attr_accessor :icon
-
-  def initialize(id = nil, name = nil, description = nil, icon = nil)
-    @id = id
-    @name = name
-    @description = description
-    @icon = icon
-  end
-end
-
 # {http://beans.soap.rpc.jira.atlassian.com}RemotePriority
 class RemotePriority < AbstractRemoteConstant
   attr_accessor :id
@@ -190,6 +198,21 @@ end
 
 # {http://beans.soap.rpc.jira.atlassian.com}RemoteResolution
 class RemoteResolution < AbstractRemoteConstant
+  attr_accessor :id
+  attr_accessor :name
+  attr_accessor :description
+  attr_accessor :icon
+
+  def initialize(id = nil, name = nil, description = nil, icon = nil)
+    @id = id
+    @name = name
+    @description = description
+    @icon = icon
+  end
+end
+
+# {http://beans.soap.rpc.jira.atlassian.com}RemoteIssueType
+class RemoteIssueType < AbstractRemoteConstant
   attr_accessor :id
   attr_accessor :name
   attr_accessor :description
@@ -434,15 +457,13 @@ end
 class RemoteRoleActor
   attr_accessor :descriptor
   attr_accessor :parameter
-  attr_accessor :prettyName
   attr_accessor :projectRole
   attr_accessor :type
   attr_accessor :users
 
-  def initialize(descriptor = nil, parameter = nil, prettyName = nil, projectRole = nil, type = nil, users = nil)
+  def initialize(descriptor = nil, parameter = nil, projectRole = nil, type = nil, users = nil)
     @descriptor = descriptor
     @parameter = parameter
-    @prettyName = prettyName
     @projectRole = projectRole
     @type = type
     @users = users
@@ -477,37 +498,8 @@ class RemoteProjectRoleActors < RemoteRoleActors
   end
 end
 
-# {http://beans.soap.rpc.jira.atlassian.com}RemoteComment
-class RemoteComment
-  attr_accessor :author
-  attr_accessor :body
-  attr_accessor :created
-  attr_accessor :groupLevel
-  attr_accessor :id
-  attr_accessor :roleLevel
-  attr_accessor :updateAuthor
-  attr_accessor :updated
-
-  def initialize(author = nil, body = nil, created = nil, groupLevel = nil, id = nil, roleLevel = nil, updateAuthor = nil, updated = nil)
-    @author = author
-    @body = body
-    @created = created
-    @groupLevel = groupLevel
-    @id = id
-    @roleLevel = roleLevel
-    @updateAuthor = updateAuthor
-    @updated = updated
-  end
-end
-
 # {http://exception.rpc.jira.atlassian.com}RemoteException
 class RemoteException < ::StandardError
-  def initialize
-  end
-end
-
-# {http://exception.rpc.jira.atlassian.com}RemoteAuthenticationException
-class RemoteAuthenticationException < ::StandardError
   def initialize
   end
 end
@@ -518,109 +510,115 @@ class RemotePermissionException < ::StandardError
   end
 end
 
+# {http://exception.rpc.jira.atlassian.com}RemoteAuthenticationException
+class RemoteAuthenticationException < ::StandardError
+  def initialize
+  end
+end
+
 # {http://exception.rpc.jira.atlassian.com}RemoteValidationException
 class RemoteValidationException < ::StandardError
   def initialize
   end
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteEntity
-class ArrayOf_tns1_RemoteEntity < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermissionMapping
-class ArrayOf_tns1_RemotePermissionMapping < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteVersion
-class ArrayOf_tns1_RemoteVersion < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_xsd_string
-class ArrayOf_xsd_string < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteComponent
-class ArrayOf_tns1_RemoteComponent < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteCustomFieldValue
-class ArrayOf_tns1_RemoteCustomFieldValue < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteNamedObject
-class ArrayOf_tns1_RemoteNamedObject < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteProject
-class ArrayOf_tns1_RemoteProject < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteFieldValue
-class ArrayOf_tns1_RemoteFieldValue < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteIssueType
-class ArrayOf_tns1_RemoteIssueType < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePriority
-class ArrayOf_tns1_RemotePriority < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteResolution
-class ArrayOf_tns1_RemoteResolution < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteStatus
-class ArrayOf_tns1_RemoteStatus < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteProjectRole
-class ArrayOf_tns1_RemoteProjectRole < ::Array
-end
-
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteUser
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteUser
 class ArrayOf_tns1_RemoteUser < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteRoleActor
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteEntity
+class ArrayOf_tns1_RemoteEntity < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermissionMapping
+class ArrayOf_tns1_RemotePermissionMapping < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteVersion
+class ArrayOf_tns1_RemoteVersion < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_xsd_string
+class ArrayOf_xsd_string < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteComponent
+class ArrayOf_tns1_RemoteComponent < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteCustomFieldValue
+class ArrayOf_tns1_RemoteCustomFieldValue < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteNamedObject
+class ArrayOf_tns1_RemoteNamedObject < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteProject
+class ArrayOf_tns1_RemoteProject < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteFieldValue
+class ArrayOf_tns1_RemoteFieldValue < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePriority
+class ArrayOf_tns1_RemotePriority < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteResolution
+class ArrayOf_tns1_RemoteResolution < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteIssueType
+class ArrayOf_tns1_RemoteIssueType < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteStatus
+class ArrayOf_tns1_RemoteStatus < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteProjectRole
+class ArrayOf_tns1_RemoteProjectRole < ::Array
+end
+
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteRoleActor
 class ArrayOf_tns1_RemoteRoleActor < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteScheme
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteScheme
 class ArrayOf_tns1_RemoteScheme < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteField
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteField
 class ArrayOf_tns1_RemoteField < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteFilter
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteFilter
 class ArrayOf_tns1_RemoteFilter < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteComment
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteComment
 class ArrayOf_tns1_RemoteComment < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_xsd_base64Binary
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_xsd_base64Binary
 class ArrayOf_xsd_base64Binary < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteAttachment
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteAttachment
 class ArrayOf_tns1_RemoteAttachment < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermissionScheme
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermissionScheme
 class ArrayOf_tns1_RemotePermissionScheme < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermission
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemotePermission
 class ArrayOf_tns1_RemotePermission < ::Array
 end
 
-# {http://localhost:8080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteIssue
+# {http://xircles.demo.openxource.com:9080/rpc/soap/jirasoapservice-v2}ArrayOf_tns1_RemoteIssue
 class ArrayOf_tns1_RemoteIssue < ::Array
 end
 
