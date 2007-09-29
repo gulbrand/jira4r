@@ -80,43 +80,13 @@ module Jira4R
     end
     
     def getProjectNoSchemes(key)
-      #Jira > 3.8.1 has been patched to support this method directly!
-      if @enhanced
-        begin
-          puts "Using new API function getProjectNoScheme"
-          getProjectNoScheme("getProjectNoSchemes", key)
-        rescue #Check exception
-          return nil
-        end
-        return getProjectNoScheme(key)
-      else
-        self.getProjectsNoSchemes().each { |project|
-          return project if project.key == key
-        }
-      end
-      return nil
+      self.getProjectsNoSchemes().find { |project| project.key == key }
     end
     
-    #Retrieve a project with the associated PermissionScheme.
-    #Due to the lack of a Jira API call for getProject, this may be quite slow when there are
-    #a lot of projects with large groups attached to permission schemes.  
-    #See: JRA-10660
     def getProject(key)
-      #Jira > 3.8.1 has been patched to support this method directly!
-      if @enhanced
-        begin
-          puts "Using new API function getProject"
-          return call_driver( "getProject", key )
-        rescue SOAP::FaultError => soap_error
-          puts soap_error
-          return nil
-        end
-      end
-      
-      self.getProjects().each { |project|
-        return project if project.key == key
-      }
-      return nil
+      #Jira > 3.10 has been patched to support this method directly as getProjectByKey
+      puts "Using deprecated JIRA4R API call getProject(key); replace with getProjectByKey(key)"
+      return getProjectByKey(key)
     end
     
     def getGroup( groupName )

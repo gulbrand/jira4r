@@ -19,7 +19,7 @@ logger.level = Logger::INFO
 
 
 desc "gets the wsdl and generates the classes"
-task :default => [:getwsdl, :generate]
+task :default => [:generate]
 
 
 
@@ -52,19 +52,36 @@ end
 desc "generate the wsdl"
 task :generate do
   versions().each { |version|
+    wsdl = getWsdlFileName(version)
+    basedir = "lib/jira4r/v#{version}"
+    mkdir_p basedir
+
+    if not File.exist?(wsdl)
+      raise "WSDL does not exist: #{wsdl}"
+    end
+    wsdl_url = "file://#{File.expand_path(wsdl)}"
+
+    # Create the server
     worker = WSDL::SOAP::WSDL2Ruby.new
     worker.logger = logger
-    worker.location = getWsdlFileName(version)
-    worker.basedir = "lib/jira4r/v#{version}"
-    
+    worker.location = wsdl_url
+    worker.basedir = basedir
     worker.opt['force'] = true
     worker.opt['classdef'] = "jiraService"
-    worker.opt['driver'] = "JiraSoapService"
-    worker.opt['mapping_registry'] = 'DefaultMappingRegistry'
     worker.opt['module_path'] ="Jira4R::V#{version}"
     
-    mkdir_p worker.basedir
+    worker.opt['mapping_registry'] = true
+    #worker.run
     
+    #Create the driver
+    #worker = WSDL::SOAP::WSDL2Ruby.new
+    #worker.logger = logger
+    #worker.location = wsdl_url
+    #worker.basedir = basedir
+    #worker.opt['force'] = true
+    #worker.opt['module_path'] = "Jira4R::V#{version}"
+
+    worker.opt['driver'] = "JiraSoapService"
     worker.run
   }
 end
